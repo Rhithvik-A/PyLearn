@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Body, Query
 from fastapi.middleware.cors import CORSMiddleware
 from google import genai
 import time
@@ -13,7 +13,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = genai.Client(api_key="AIzaSyDw-Y9MILuDzngEbeCItnqV9NAiqsof3x0")
+# Login Logic
+VALID_PASSWORD = "PyLEaRn@671/1/2026_USER"
+
+@app.post("/login")
+def login(data: dict = Body(...)):
+    if data["password"] == VALID_PASSWORD:
+        return {"success": True}
+    return {"success": False}
+
+# Code Conversion Logic
+client = genai.Client(api_key="AIzaSyB8QTPh4nMAo5VZjjBzlyn0Bp30YTsIjRo")
 
 @app.get("/convert_code")
 def convert_code(Question: str = Query(..., description="Your question")):

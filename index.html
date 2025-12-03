@@ -39,15 +39,19 @@
             <form id="loginForm" class="space-y-5">
                 <div>
                     <label for="email" class="block text-sm mb-1">Email ID</label>
-                    <input id="email" type="text" placeholder="Enter your email" class="w-full mb-4 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-cyan-400 outline-none transition transform hover:scale-105">
+                    <input id="email" type="text" placeholder="Enter your email"
+                        class="w-full mb-4 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-cyan-400 outline-none transition transform hover:scale-105">
                 </div>
                 <div>
                     <label for="password" class="block text-sm mb-1">Password</label>
-                    <input id="password" type="password" placeholder="Enter the PyLearn password for usage" class="w-full mb-6 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-fuchsia-400 outline-none transition transform hover:scale-105">
+                    <input id="password" type="password" placeholder="Enter the PyLearn password for usage"
+                        class="w-full mb-6 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-fuchsia-400 outline-none transition transform hover:scale-105">
 
                 </div>
 
-                <button type="submit" class="w-full py-2 mt-2 bg-gradient-to-r from-purple-500 via-pink-400 to-blue-400 text-white rounded-md font-semibold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, #00b3ff, #f200ff);">
+                <button type="submit"
+                    class="w-full py-2 mt-2 bg-gradient-to-r from-purple-500 via-pink-400 to-blue-400 text-white rounded-md font-semibold hover:opacity-90 transition-all"
+                    style="background: linear-gradient(135deg, #00b3ff, #f200ff);">
                     Login
                 </button>
             </form>
@@ -55,6 +59,7 @@
         </div>
     </div>
 
+    <!-- Home -->
     <div id="home_container" style="display: none;">
         <!-- Background -->
         <img class="fixed inset-0 w-full h-full object-cover z-[-2] 
@@ -75,10 +80,12 @@
                 <a onclick="showLearn()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     📘 <span>Learn</span>
                 </a>
-                <a onclick="showQuizzes()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showQuizzes()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧠 <span>Quizzes</span>
                 </a>
-                <a onclick="showPlayground()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showPlayground()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧩 <span>Playground</span>
                 </a>
             </div>
@@ -89,13 +96,15 @@
         <div class="flex flex-col md:flex-row items-center justify-between mt-32 px-8 lg:px-16 gap-12 mb-16">
             <!-- Left: Text Content -->
             <div class="flex-1 text-center md:text-left space-y-6">
-                <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 drop-shadow-2xl">
+                <h1
+                    class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 drop-shadow-2xl leading-tight pb-2">
                     Welcome to PyLearn ✨
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 max-w-xl leading-relaxed">
                     Learn Python interactively, solve quizzes, and play with code in our playground.
                 </p>
-                <button onclick="showLearn()" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 
+                <button onclick="showLearn()"
+                    class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 
                                 rounded-full font-semibold transition-all text-white shadow-lg hover:shadow-xl transform hover:scale-105">
                     Start Learning
                 </button>
@@ -103,55 +112,84 @@
 
             <!-- Right: Image -->
             <div class="flex-1 flex justify-center md:justify-end">
-                <img src="python_code_example.jpg" alt="python_code_example" class="w-full max-w-md rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                <img src="python_code_example.jpg" alt="python_code_example"
+                    class="w-full max-w-md rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
             </div>
         </div>
 
         <!-- Stats Section -->
-        <div data-source-location="pages/Home:164:8" data-dynamic-content="true" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="sentiment_analysis_data">
-            <div data-source-location="pages/Home:165:10" data-dynamic-content="true" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div data-source-location="pages/Home:169:16" data-dynamic-content="true" class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+        <div data-source-location="pages/Home:164:8" data-dynamic-content="true"
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="sentiment_analysis_data">
+            <div data-source-location="pages/Home:165:10" data-dynamic-content="true"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div data-source-location="pages/Home:169:16" data-dynamic-content="true"
+                    class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     <div data-source-location="pages/Home:170:18" data-dynamic-content="true" class="p-6 text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-10 h-10 mx-auto mb-4 text-purple-600" data-source-location="pages/Home:171:20" data-dynamic-content="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-users w-10 h-10 mx-auto mb-4 text-purple-600"
+                            data-source-location="pages/Home:171:20" data-dynamic-content="false">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                             <circle cx="9" cy="7" r="4"></circle>
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
-                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true" class="text-3xl font-bold text-gray-900 mb-2">10K+</div>
-                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true" class="text-sm text-gray-600 font-medium">Active Learners</div>
+                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true"
+                            class="text-3xl font-bold text-gray-900 mb-2">10K+</div>
+                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true"
+                            class="text-sm text-gray-600 font-medium">Active Learners</div>
                     </div>
                 </div>
-                <div data-source-location="pages/Home:169:16" data-dynamic-content="true" class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div data-source-location="pages/Home:169:16" data-dynamic-content="true"
+                    class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     <div data-source-location="pages/Home:170:18" data-dynamic-content="true" class="p-6 text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open w-10 h-10 mx-auto mb-4 text-purple-600" data-source-location="pages/Home:171:20" data-dynamic-content="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-book-open w-10 h-10 mx-auto mb-4 text-purple-600"
+                            data-source-location="pages/Home:171:20" data-dynamic-content="false">
                             <path d="M12 7v14"></path>
-                            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                            <path
+                                d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z">
+                            </path>
                         </svg>
-                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true" class="text-3xl font-bold text-gray-900 mb-2">65+</div>
-                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true" class="text-sm text-gray-600 font-medium">Lessons</div>
+                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true"
+                            class="text-3xl font-bold text-gray-900 mb-2">65+</div>
+                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true"
+                            class="text-sm text-gray-600 font-medium">Lessons</div>
                     </div>
                 </div>
-                <div data-source-location="pages/Home:169:16" data-dynamic-content="true" class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div data-source-location="pages/Home:169:16" data-dynamic-content="true"
+                    class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     <div data-source-location="pages/Home:170:18" data-dynamic-content="true" class="p-6 text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-xml w-10 h-10 mx-auto mb-4 text-purple-600" data-source-location="pages/Home:171:20" data-dynamic-content="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-code-xml w-10 h-10 mx-auto mb-4 text-purple-600"
+                            data-source-location="pages/Home:171:20" data-dynamic-content="false">
                             <path d="m18 16 4-4-4-4"></path>
                             <path d="m6 8-4 4 4 4"></path>
                             <path d="m14.5 4-5 16"></path>
                         </svg>
-                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true" class="text-3xl font-bold text-gray-900 mb-2">200+</div>
-                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true" class="text-sm text-gray-600 font-medium">Practice Problems</div>
+                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true"
+                            class="text-3xl font-bold text-gray-900 mb-2">200+</div>
+                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true"
+                            class="text-sm text-gray-600 font-medium">Practice Problems</div>
                     </div>
                 </div>
-                <div data-source-location="pages/Home:169:16" data-dynamic-content="true" class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div data-source-location="pages/Home:169:16" data-dynamic-content="true"
+                    class="rounded-xl bg-white border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                     <div data-source-location="pages/Home:170:18" data-dynamic-content="true" class="p-6 text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target w-10 h-10 mx-auto mb-4 text-purple-600" data-source-location="pages/Home:171:20" data-dynamic-content="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-target w-10 h-10 mx-auto mb-4 text-purple-600"
+                            data-source-location="pages/Home:171:20" data-dynamic-content="false">
                             <circle cx="12" cy="12" r="10"></circle>
                             <circle cx="12" cy="12" r="6"></circle>
                             <circle cx="12" cy="12" r="2"></circle>
                         </svg>
-                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true" class="text-3xl font-bold text-gray-900 mb-2">95%</div>
-                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true" class="text-sm text-gray-600 font-medium">Success Rate</div>
+                        <div data-source-location="pages/Home:172:20" data-dynamic-content="true"
+                            class="text-3xl font-bold text-gray-900 mb-2">95%</div>
+                        <div data-source-location="pages/Home:173:20" data-dynamic-content="true"
+                            class="text-sm text-gray-600 font-medium">Success Rate</div>
                     </div>
                 </div>
             </div>
@@ -173,10 +211,12 @@
                 <a onclick="showLearn()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     📘 <span>Learn</span>
                 </a>
-                <a onclick="showQuizzes()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showQuizzes()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧠 <span>Quizzes</span>
                 </a>
-                <a onclick="showPlayground()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showPlayground()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧩 <span>Playground</span>
                 </a>
             </div>
@@ -185,16 +225,22 @@
 
         <!-- Content -->
         <div class="pt-32 px-8 lg:px-16 pb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 mb-8">Python Tutorial</h1>
+            <h1
+                class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 leading-tight pb-3 mb-8">
+                Python Tutorial
+            </h1>
 
-            <div class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl p-8 max-w-4xl border border-gray-800" id="learn_start_page">
+            <div class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl p-8 max-w-4xl border border-gray-800"
+                id="learn_start_page">
                 <h2 class="text-3xl font-bold text-white mb-4">Learn Python</h2>
                 <p class="text-lg text-gray-300 mb-3 leading-relaxed">Python is a popular programming language.</p>
-                <p class="text-lg text-gray-300 leading-relaxed">Python can be used on a server to create web applications.</p>
+                <p class="text-lg text-gray-300 leading-relaxed">Python can be used on a server to create web
+                    applications.</p>
             </div>
         </div>
     </div>
 
+    <!-- Quizzes -->
     <div id="quizzes_container" style="display: none; background-color: #000000; min-height: 100vh;">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full flex justify-end items-center 
@@ -208,10 +254,12 @@
                 <a onclick="showLearn()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     📘 <span>Learn</span>
                 </a>
-                <a onclick="showQuizzes()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showQuizzes()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧠 <span>Quizzes</span>
                 </a>
-                <a onclick="showPlayground()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showPlayground()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧩 <span>Playground</span>
                 </a>
             </div>
@@ -220,10 +268,16 @@
 
         <!-- Content -->
         <div class="pt-32 px-8 lg:px-16 pb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600">Python Quizzes</h1>
+            <div class="overflow-visible">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 pb-2">
+                    Python Quizzes
+                </h1>
+            </div>
         </div>
     </div>
 
+    <!-- Playground -->
     <div id="playground_container" style="display: none; background-color: #000000; min-height: 100vh;">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full flex justify-end items-center 
@@ -237,10 +291,12 @@
                 <a onclick="showLearn()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     📘 <span>Learn</span>
                 </a>
-                <a onclick="showQuizzes()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showQuizzes()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧠 <span>Quizzes</span>
                 </a>
-                <a onclick="showPlayground()" class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                <a onclick="showPlayground()"
+                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
                     🧩 <span>Playground</span>
                 </a>
             </div>
@@ -251,26 +307,37 @@
         <div class="pt-32 px-6 lg:px-16 pb-20 text-white">
             <div class="max-w-6xl mx-auto space-y-12">
                 <div class="text-center space-y-6">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200 uppercase tracking-widest text-xs">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4">
-                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200 uppercase tracking-widest text-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-sparkles w-4 h-4">
+                            <path
+                                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z">
+                            </path>
                         </svg>
                         Playground Mode
                     </div>
                     <h1 class="text-4xl md:text-5xl font-extrabold">
-                        Build, Test & Iterate in the <span class="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">Python Playground</span>
+                        Build, Test & Iterate in the <span
+                            class="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">Python
+                            Playground</span>
                     </h1>
                     <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                        A distraction-free coding surface with instant feedback, curated hints, and a modern console so you can ship ideas faster.
+                        A distraction-free coding surface with instant feedback, curated hints, and a modern console so
+                        you can ship ideas faster.
                     </p>
                     <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-400">
-                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
                             ⚡ Auto-reset sandbox
                         </span>
-                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
                             📦 Standard library access
                         </span>
-                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
                             🔐 Isolated sessions
                         </span>
                     </div>
@@ -278,7 +345,8 @@
 
                 <div class="grid lg:grid-cols-[1.8fr,1fr] gap-6">
                     <div class="rounded-2xl border border-slate-800 bg-slate-950/60 shadow-2xl backdrop-blur">
-                        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-gradient-to-r from-slate-900/80 to-slate-900/40 rounded-t-2xl">
+                        <div
+                            class="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-gradient-to-r from-slate-900/80 to-slate-900/40 rounded-t-2xl">
                             <div class="flex items-center gap-3 text-sm text-slate-300">
                                 <div class="flex gap-1.5">
                                     <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
@@ -288,15 +356,21 @@
                                 editor.py
                             </div>
                             <div class="flex items-center gap-3 text-xs text-slate-400">
-                                <button class="hover:text-white flex items-center gap-1 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw w-4 h-4">
+                                <button class="hover:text-white flex items-center gap-1 transition-colors"
+                                    onclick="resetCode()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-rotate-ccw w-4 h-4">
                                         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
                                         <path d="M3 3v5h5"></path>
                                     </svg>
                                     Reset
                                 </button>
-                                <button class="hover:text-white flex items-center gap-1 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy w-4 h-4">
+                                <button class="hover:text-white flex items-center gap-1 transition-colors"
+                                    onclick="copyCode()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-copy w-4 h-4">
                                         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
                                         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
                                     </svg>
@@ -304,13 +378,21 @@
                                 </button>
                             </div>
                         </div>
-                        <textarea class="w-full h-[320px] bg-transparent px-6 py-4 font-mono text-sm text-emerald-300 focus:outline-none resize-none" id="code_place" placeholder="# Write your Python code here...
+                        <textarea
+                            class="w-full h-[320px] bg-transparent px-6 py-4 font-mono text-sm text-emerald-300 focus:outline-none resize-none"
+                            id="code_place" placeholder="# Write your Python code here...
 print('Hello, PyLearn!')" spellcheck="false"># Welcome to the Python Playground! 🚀
-for step in range(1, 4):
-    print(f"Iteration {step}: keep exploring!")</textarea>
-                        <div class="flex flex-wrap gap-3 px-6 py-4 border-t border-slate-800 bg-slate-900/60 rounded-b-2xl">
-                            <button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-[1.01] transition text-sm font-semibold shadow-lg shadow-purple-500/20" onclick="code_result()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play w-4 h-4">
+print("Hello, PyLearn!")
+</textarea>
+
+                        <div
+                            class="flex flex-wrap gap-3 px-6 py-4 border-t border-slate-800 bg-slate-900/60 rounded-b-2xl">
+                            <button
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-[1.01] transition text-sm font-semibold shadow-lg shadow-purple-500/20"
+                                onclick="code_result()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-play w-4 h-4">
                                     <polygon points="6 3 20 12 6 21 6 3"></polygon>
                                 </svg>
                                 Run code
@@ -321,29 +403,20 @@ for step in range(1, 4):
 
                     <div class="space-y-6">
                         <div class="rounded-2xl border border-slate-800 bg-slate-950/60 shadow-2xl p-6">
-                            <pre class="bg-slate-950/80 border border-slate-900 rounded-xl p-4 text-sm text-slate-200 font-mono overflow-auto min-h-[140px]">Iteration 1: keep exploring!
-Iteration 2: keep exploring!
-Iteration 3: keep exploring!
-</pre>
-                        </div>
-
-                        <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-4">
-                            <h3 class="text-lg font-semibold text-white">Session Insights</h3>
-                            <div class="space-y-3 text-sm text-slate-300">
-                                <div class="flex justify-between">
-                                    <span>Execution time</span>
-                                    <span class="text-white font-medium">0.41s</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Memory footprint</span>
-                                    <span class="text-white font-medium">21 MB</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Last run</span>
-                                    <span class="text-white font-medium">Just now</span>
+                            <!-- Playground Loader -->
+                            <div id="loader"
+                                class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
+                                <div
+                                    class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin">
                                 </div>
                             </div>
+                            <pre class="bg-slate-950/80 border border-slate-900 rounded-xl p-4 text-sm text-slate-200 font-mono overflow-auto min-h-[140px]"
+                                id="output_code">Hello, PyLearn!
+
+                            </pre>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -351,17 +424,20 @@ Iteration 3: keep exploring!
                     <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
                         <div class="text-3xl">💡</div>
                         <h3 class="font-semibold text-white">Stay curious</h3>
-                        <p class="text-sm text-slate-400">Instrument your code with print statements or f-strings to understand the flow.</p>
+                        <p class="text-sm text-slate-400">Instrument your code with print statements or f-strings to
+                            understand the flow.</p>
                     </div>
                     <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
                         <div class="text-3xl">🧪</div>
                         <h3 class="font-semibold text-white">Treat it like a lab</h3>
-                        <p class="text-sm text-slate-400">Use short iterations, reset often, and test one idea at a time.</p>
+                        <p class="text-sm text-slate-400">Use short iterations, reset often, and test one idea at a
+                            time.</p>
                     </div>
                     <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
                         <div class="text-3xl">📚</div>
                         <h3 class="font-semibold text-white">Link to lessons</h3>
-                        <p class="text-sm text-slate-400">Recreate examples from the Learn tab and push them further with experiments.</p>
+                        <p class="text-sm text-slate-400">Recreate examples from the Learn tab and push them further
+                            with experiments.</p>
                     </div>
                 </div>
             </div>
@@ -372,7 +448,7 @@ Iteration 3: keep exploring!
     <script>
         const form = document.getElementById("loginForm");
 
-        form.addEventListener("submit", async function(e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
             const email = document.getElementById("email").value.trim();
@@ -437,25 +513,35 @@ Iteration 3: keep exploring!
             document.getElementById("body").style.backgroundColor = "black";
         }
 
+
         async function code_result() {
-            let code = document.getElementById('code_place').innerText;
-            let question = code + 'for this code write the real output which comes in a real IDE in python 3.14.0 only write the answer even if it is an error just write error message with the Execution time Memory footprint all should be separated by a ", "';
+            const loader = document.getElementById("loader");
+            loader.classList.remove("hidden"); // show loader
+
+            let code = document.getElementById('code_place').value;
+            let question = code + '(Write only the exact output exactly as Python 3.14 would show it. No triple quotes, no formatting.)';
 
             try {
                 const response = await fetch(`http://127.0.0.1:8000/convert_code?Question=${encodeURIComponent(question)}`);
                 const data = await response.json();
 
-                if (data.answer) {
-                    console.log("AI Response:", data.answer);
-                    return data.answer;
-                } else {
-                    console.error("Server Error:", data.error);
-                    return "Error: " + data.error;
-                }
+                document.getElementById('output_code').innerText = data.answer || '';
             } catch (err) {
                 console.error("Request Failed:", err);
-                return "Failed to reach server.";
             }
+
+            loader.classList.add("hidden"); // hide loader
+        }
+
+
+        function resetCode() {
+            document.getElementById('code_place').value = '';
+            document.getElementById('output_code').innerHTML = '';
+        }
+
+        function copyCode() {
+            let code = document.getElementById('code_place').value;
+            navigator.clipboard.writeText(code);
         }
     </script>
 
