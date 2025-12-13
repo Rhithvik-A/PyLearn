@@ -8,12 +8,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-image: url('login.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            overflow-x: hidden;
         }
 
         .glass {
@@ -24,6 +37,171 @@
 
         ::placeholder {
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Modern Navbar Styles */
+        nav {
+            transition: all 0.3s ease;
+        }
+
+        nav a {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover effect with underline animation */
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa, #60a5fa);
+            transform: translateX(-50%);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav a:hover::before {
+            width: 80%;
+        }
+
+        /* Glow effect on hover */
+        nav a:hover {
+            color: #93c5fd !important;
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+        }
+
+        /* Active state pulse animation */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        nav a:active {
+            transform: translateY(0);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced button styles */
+        button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card hover effects */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Gradient text animation */
+        @keyframes gradient-shift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background-size: 200% 200%;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        /* Input focus effects */
+        input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+        }
+
+        /* Smooth transitions for all interactive elements */
+        a,
+        button,
+        input,
+        textarea {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #60a5fa, #a78bfa);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #93c5fd, #c4b5fd);
+        }
+
+        .learn-link {
+            display: block;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            color: #9ca3af;
+            transition: all 0.2s ease;
+        }
+
+        .learn-link:hover {
+            background: #1f2937;
+            color: white;
         }
     </style>
 </head>
@@ -223,25 +401,99 @@
 
         </nav>
 
-        <!-- Content -->
-        <div class="pt-32 px-8 lg:px-16 pb-16">
-            <h1
-                class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 leading-tight pb-3 mb-8">
+        <!-- ======== LEARN SIDEBAR (NEW) ======== -->
+        <aside class="fixed top-20 left-0 w-64 h-[calc(100vh-5rem)]
+           bg-gray-950 border-r border-gray-800
+           overflow-y-auto px-4 py-6 z-20">
+
+            <h3 class="text-gray-300 font-bold mb-4">Python Basics</h3>
+
+            <a href="#intro" class="learn-link">Introduction</a>
+            <a href="#variables" class="learn-link">Variables</a>
+            <a href="#datatypes" class="learn-link">Data Types</a>
+            <a href="#loops" class="learn-link">Loops</a>
+            <a href="#functions" class="learn-link">Functions</a>
+        </aside>
+        <!-- ==================================== -->
+
+        <!-- Content (ONLY ml-64 added) -->
+        <div class="pt-32 px-8 lg:px-16 pb-16 ml-64">
+
+            <h1 id="intro" class="text-4xl md:text-5xl font-extrabold text-transparent
+        bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600
+        leading-tight pb-3 mb-8">
                 Python Tutorial
             </h1>
 
-            <div class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl p-8 max-w-4xl border border-gray-800"
-                id="learn_start_page">
+            <!-- SYNTAX -->
+            <div id="syntax" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+        p-8 max-w-4xl border border-gray-800 mb-12">
+
                 <h2 class="text-3xl font-bold text-white mb-4">Learn Python</h2>
-                <p class="text-lg text-gray-300 mb-3 leading-relaxed">Python is a popular programming language.</p>
-                <p class="text-lg text-gray-300 leading-relaxed">Python can be used on a server to create web
-                    applications.</p>
+                <p class="text-lg text-gray-300 mb-3 leading-relaxed">
+                    Python is simple, powerful, and used to build apps, games, websites, and even AI.
+                </p>
+                <p class="text-lg text-gray-300 mb-3 leading-relaxed">
+                    Example: Your first program!
+                </p>
+                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print("Hello, World!")</code></pre>
+                <p class="text-gray-300">💡 <strong>Tip:</strong> `print()` shows output on the screen. Run it and
+                    celebrate 🎉</p>
             </div>
+
+            <!-- VARIABLES -->
+            <div id="variables" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+        p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Variables</h2>
+                <p class="text-gray-300 mb-2">
+                    Variables store data. Think of them as boxes that hold values.
+                </p>
+                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 14
+name = "Alex"</code></pre>
+                <p class="text-gray-300">💡 Use `=` to store values. Not math!</p>
+            </div>
+
+            <!-- DATA TYPES -->
+            <div id="datatypes" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+        p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Data Types</h2>
+                <p class="text-gray-300 mb-2">
+                    Common types: int, float, string, list, tuple, dict
+                </p>
+                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>marks = [80, 90, 75]   # list
+student = {"name": "Sam", "age": 15}  # dictionary</code></pre>
+                <p class="text-gray-300">💡 Lists = ordered, Dictionaries = key-value pairs</p>
+            </div>
+
+            <!-- LOOPS -->
+            <div id="loops" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+        p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Loops</h2>
+                <p class="text-gray-300 mb-2">
+                    Loops repeat code automatically. Great for patterns & repeated tasks.
+                </p>
+                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>for i in range(5):
+    print(i)</code></pre>
+                <p class="text-gray-300">💡 `for` loops = repeat for a set number of times</p>
+            </div>
+
+            <!-- FUNCTIONS -->
+            <div id="functions" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+        p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Functions</h2>
+                <p class="text-gray-300 mb-2">
+                    Functions let you reuse code. Write once, use many times.
+                </p>
+                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>def greet():
+    print("Hello!")</code></pre>
+                <p class="text-gray-300">💡 Call `greet()` anywhere to say Hello!</p>
+            </div>
+
         </div>
     </div>
 
     <!-- Quizzes -->
-    <div id="quizzes_container" style="display: none; background-color: #000000; min-height: 100vh;">
+    <div id="quizzes_container" style="display: none; min-height: 100vh;">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full flex justify-end items-center 
                 py-4 px-8 bg-black/80 backdrop-blur-md shadow-lg z-10 border-b border-gray-800">
@@ -278,7 +530,7 @@
     </div>
 
     <!-- Playground -->
-    <div id="playground_container" style="display: none; background-color: #000000; min-height: 100vh;">
+    <div id="playground_container" style="display: none; min-height: 100vh;">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full flex justify-end items-center 
                 py-4 px-8 bg-black/80 backdrop-blur-md shadow-lg z-10 border-b border-gray-800">
@@ -324,7 +576,8 @@
                             Playground</span>
                     </h1>
                     <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                        A distraction-free coding surface with instant feedback, curated hints, and a modern console so
+                        A distraction-free coding surface with instant feedback, curated hints, and a modern console
+                        so
                         you can ship ideas faster.
                     </p>
                     <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-400">
