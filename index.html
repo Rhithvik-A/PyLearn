@@ -347,6 +347,97 @@
             background: #1f2937;
             color: white;
         }
+
+        /* Quiz Dashboard Styles */
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .quiz-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .quiz-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .quiz-card p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-session-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .quiz-option.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background: #059669;
+            border-color: #059669;
+            color: white;
+        }
+
+        .quiz-option.wrong {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: white;
+        }
+
+        .progress-bar {
+            height: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 
@@ -2983,11 +3074,67 @@ greet("Sam", "Hi")         # Output: Hi, Sam!</code><div class="mt-2 flex justif
 
         <!-- Content -->
         <div class="pt-32 px-8 lg:px-16 pb-16">
-            <div class="overflow-visible">
-                <h1
-                    class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 pb-2">
+            <div id="quiz_dashboard">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 pb-2 mb-8">
                     Python Quizzes
                 </h1>
+                <p class="text-gray-400 mb-12 text-lg">Test your Python skills with our categorized interactive quizzes.</p>
+                
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="quiz_topic_list">
+                    <!-- Topic cards will be injected here -->
+                </div>
+            </div>
+
+            <div id="quiz_session" style="display: none;">
+                <button onclick="exitQuiz()" class="mb-8 text-gray-400 hover:text-white flex items-center gap-2 transition">
+                    ← Back to Dashboard
+                </button>
+                
+                <div class="quiz-session-container">
+                    <div class="flex justify-between items-center mb-4">
+                        <span id="quiz_topic_title" class="text-sm font-bold text-purple-400 uppercase tracking-widest">TOPIC</span>
+                        <span id="quiz_progress_text" class="text-sm text-gray-400">Question 1 of 10</span>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div id="quiz_progress_fill" class="progress-fill" style="width: 10%;"></div>
+                    </div>
+                    
+                    <h2 id="quiz_question" class="text-2xl font-bold text-white mb-8">Loading question...</h2>
+                    
+                    <div id="quiz_options" class="space-y-4">
+                        <!-- Options will be injected here -->
+                    </div>
+                    
+                    <div class="mt-12 flex justify-between items-center">
+                        <p id="quiz_feedback" class="text-lg font-semibold"></p>
+                        <button id="next_btn" onclick="nextQuestion()" class="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-3 rounded-xl font-bold hover:from-purple-500 hover:to-pink-500 transition-all transform hover:scale-105" style="display: none;">
+                            Next Question →
+                        </button>
+                        <button id="finish_btn" onclick="showResults()" class="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-3 rounded-xl font-bold hover:from-green-500 hover:to-emerald-500 transition-all transform hover:scale-105" style="display: none;">
+                            Finish Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quiz_results" style="display: none;" class="text-center py-20">
+                <div class="max-w-md mx-auto">
+                    <div class="text-6xl mb-6">🏆</div>
+                    <h2 class="text-4xl font-bold text-white mb-2">Quiz Completed!</h2>
+                    <p class="text-gray-400 mb-8">Here is how you performed:</p>
+                    
+                    <div class="glass p-8 rounded-3xl mb-8 border-white/10">
+                        <div class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
+                             <span id="result_score">0</span>/<span id="result_total">10</span>
+                        </div>
+                        <p id="result_message" class="text-lg font-medium text-gray-300">Great effort!</p>
+                    </div>
+                    
+                    <button onclick="exitQuiz()" class="w-full py-4 btn-premium rounded-2xl font-bold text-lg shadow-xl shadow-purple-500/20">
+                        Try Another Quiz
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -3317,6 +3464,271 @@ print(greet("PyLearn"))
             }, 3000);
 
         }
+const quizData = [
+  {
+    topic: "Introduction",
+    questions: [
+      { q: "What is Python?", options: ["A programming language", "A snake", "A car"], a: 0 },
+      { q: "Who created Python?", options: ["Elon Musk", "Guido van Rossum", "Mark Zuckerberg"], a: 1 },
+      { q: "Which year was Python released?", options: ["1991", "2005", "1985"], a: 0 }
+    ]
+  },
+  {
+    topic: "Variables",
+    questions: [
+      { q: "How do you create a variable?", options: ["x = 5", "var x = 5", "int x = 5"], a: 0 },
+      { q: "Can a variable name start with a number?", options: ["Yes", "No"], a: 1 },
+      { q: "Which is a valid variable name?", options: ["my variable", "my-var", "my_var"], a: 2 },
+      { q: "Assign multiple variables: x=1, y=2, z=3", options: ["x,y,z = 1,2,3", "x=1, y=2, z=3", "x:1 y:2 z:3"], a: 0 },
+      { q: "How to check a variable's type?", options: ["getType(x)", "type(x)", "typeof x"], a: 1 }
+    ]
+  },
+  {
+    topic: "Data Types",
+    questions: [
+      { q: "Type of 5.5?", options: ["int", "float", "double"], a: 1 },
+      { q: "Type of '123'?", options: ["integer", "string", "list"], a: 1 },
+      { q: "Is 'True' (with quotes) a boolean?", options: ["Yes", "No"], a: 1 },
+      { q: "Which is a sequence type?", options: ["list", "dict", "set"], a: 0 },
+      { q: "Is dict a mapping type?", options: ["Yes", "No"], a: 0 }
+    ]
+  },
+  {
+    topic: "Strings",
+    questions: [
+      { q: '"hello".upper() returns?', options: ["hello", "HELLO", "Hello"], a: 1 },
+      { q: "Remove whitespace from both ends?", options: ["trim()", "strip()", "remove()"], a: 1 },
+      { q: "Reverse a string using slicing?", options: ["str[::-1]", "str.reverse()", "str.rev()"], a: 0 },
+      { q: "Check if string contains only digits?", options: ["isdigit()", "isnumber()", "isnumeric()"], a: 0 },
+      { q: "Concatenate 'Hello' and 'World'?", options: ['"Hello" + " " + "World"', '"HelloWorld"', '"Hello World".join()'], a: 0 },
+      { q: 'len("Python") returns?', options: ["5", "6", "7"], a: 1 },
+      { q: "Convert number 10 to string?", options: ["str(10)", "int(10)", "toString(10)"], a: 0 },
+      { q: "Method to split string into list?", options: ["split()", "divide()", "cut()"], a: 0 },
+      { q: 'Check if string starts with "Py"?', options: ["startswith()", "begin()", "start()"], a: 0 },
+      { q: '"abc".replace("a","z") returns?', options: ["zbc", "abc", "zabc"], a: 0 },
+      { q: "Find position of 'a' in 'banana'?", options: [".find('a')", ".pos('a')", ".index('a')"], a: 0 },
+      { q: "Check if string is all lowercase?", options: [".islower()", ".lowerCase()", ".checkLower()"], a: 0 },
+      { q: "Join ['a', 'b'] into 'a-b'?", options: ["'-'.join(['a','b'])", "join('-',['a','b'])", "['a','b'].join('-')"], a: 0 }
+    ]
+  },
+  {
+    topic: "Operators",
+    questions: [
+      { q: "Exponentiation operator?", options: ["**", "^", "exp"], a: 0 },
+      { q: "Modulus operator?", options: ["%", "//", "/"], a: 0 },
+      { q: "Floor division operator?", options: ["//", "%%", "/"], a: 0 },
+      { q: "Comparison for 'not equal'?", options: ["<>", "!=", "not"], a: 1 },
+      { q: "Logical 'and' operator?", options: ["&&", "and", "AND"], a: 1 }
+    ]
+  },
+  {
+    topic: "Lists",
+    questions: [
+      { q: "Add item to end of list?", options: ["add()", "push()", "append()"], a: 2 },
+      { q: "Remove item by value?", options: ["remove()", "delete()", "discard()"], a: 0 },
+      { q: "Remove item by index?", options: ["pop()", "removeIndex()", "drop()"], a: 0 },
+      { q: "Sort a list?", options: ["sort()", "arrange()", "order()"], a: 0 },
+      { q: "Nested list: my_list[0][1] accesses?", options: ["First list, second item", "Second list, first item"], a: 0 }
+    ]
+  },
+  {
+      topic: "Conditionals",
+      questions: [
+          { q: "Keyword for 'else if'?", options: ["elseif", "elif", "else if"], a: 1 },
+          { q: "Correct syntax for if condition?", options: ["if x > 5:", "if (x > 5)", "if x > 5 then"], a: 0 },
+          { q: "Nested if: can we have if inside if?", options: ["Yes", "No"], a: 0 }
+      ]
+  },
+  {
+      topic: "Loops",
+      questions: [
+          { q: "Terminate loop early?", options: ["stop", "break", "exit"], a: 1 },
+          { q: "Skip to next iteration?", options: ["next", "pass", "continue"], a: 2 },
+          { q: "Loop 5 times (0-4)?", options: ["for i in range(5):", "for 5 times:", "loop 5:"], a: 0 },
+          { q: "range(2, 5) produces?", options: ["2,3,4,5", "2,3,4", "3,4,5"], a: 1 }
+      ]
+  },
+  {
+      topic: "Functions",
+      questions: [
+          { q: "Keyword to create function?", options: ["func", "function", "def"], a: 2 },
+          { q: "Call function 'show()'", options: ["show()", "call show()", "run show"], a: 0 },
+          { q: "Keyword to return value?", options: ["send", "return", "output"], a: 1 },
+          { q: "Create anonymous function?", options: ["lambda", "anonymous", "inline"], a: 0 }
+      ]
+  },
+  {
+      topic: "Classes & Objects",
+      questions: [
+          { q: "Create class 'Car'?", options: ["class Car:", "new class Car", "object Car:"], a: 0 },
+          { q: "The __init__ method is a...", options: ["Constructor", "Destructor", "Normal method"], a: 0 },
+          { q: "Instance reference inside class?", options: ["this", "self", "me"], a: 1 },
+          { q: "Access parent class methods?", options: ["parent()", "super()", "base()"], a: 1 }
+      ]
+  },
+    {
+      topic: "Exceptions",
+      questions: [
+          { q: "Handle potential errors?", options: ["try...except", "do...catch", "check...error"], a: 0 },
+          { q: "Code that ALWAYS runs?", options: ["else", "finally", "always"], a: 1 },
+          { q: "Raise an error manually?", options: ["throw", "error", "raise"], a: 2 }
+      ]
+  },
+  {
+      topic: "Tuples",
+      questions: [
+          { q: "Are tuples mutable (changeable)?", options: ["Yes", "No"], a: 1 },
+          { q: "Create a tuple with one item?", options: ["(1)", "(1,)", "tuple(1)"], a: 1 },
+          { q: "Join two tuples?", options: ["t1 + t2", "t1.join(t2)", "t1.add(t2)"], a: 0 }
+      ]
+  },
+  {
+      topic: "Sets",
+      questions: [
+          { q: "Do sets allow duplicate values?", options: ["Yes", "No"], a: 1 },
+          { q: "Add item to a set?", options: ["add()", "append()", "insert()"], a: 0 },
+          { q: "Get union of two sets?", options: ["u()", "union()", "combine()"], a: 1 }
+      ]
+  },
+  {
+      topic: "Dictionaries",
+      questions: [
+          { q: "Access value of key 'id' in dict 'd'?", options: ["d['id']", "d.id", "d(id)"], a: 0 },
+          { q: "Get all keys?", options: ["allKeys()", "keys()", "listKeys()"], a: 1 },
+          { q: "Remove item with key 'id'?", options: ["pop('id')", "remove('id')", "delete('id')"], a: 0 },
+          { q: "Check if key exists?", options: ["'id' in d", "d.has('id')", "exists('id', d)"], a: 0 }
+      ]
+  },
+  {
+      topic: "Modules",
+      questions: [
+          { q: "Keyword to use a module?", options: ["use", "import", "require"], a: 1 },
+          { q: "Import 'sqrt' from 'math'?", options: ["from math import sqrt", "import sqrt from math", "import math.sqrt"], a: 0 },
+          { q: "List names defined in module?", options: ["dir()", "list()", "names()"], a: 0 }
+      ]
+  }
+];
+
+let currentQuiz = null;
+let currentQuestionIndex = 0;
+let score = 0;
+
+function initQuizDashboard() {
+  const container = document.getElementById('quiz_topic_list');
+  container.innerHTML = '';
+  
+  quizData.forEach((quiz, index) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.onclick = () => startQuiz(index);
+    card.innerHTML = `
+      <h3>${quiz.topic}</h3>
+      <p>${quiz.questions.length} Questions</p>
+      <button class="bg-primary/20 text-primary border border-primary/30 px-6 py-2 rounded-full font-bold hover:bg-primary hover:text-white transition">Start Quiz</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function startQuiz(quizIndex) {
+  currentQuiz = quizData[quizIndex];
+  currentQuestionIndex = 0;
+  score = 0;
+  
+  document.getElementById('quiz_dashboard').style.display = 'none';
+  document.getElementById('quiz_results').style.display = 'none';
+  document.getElementById('quiz_session').style.display = 'block';
+  
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = currentQuiz.questions[currentQuestionIndex];
+  document.getElementById('quiz_topic_title').textContent = currentQuiz.topic;
+  document.getElementById('quiz_progress_text').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuiz.questions.length}`;
+  
+  const progress = ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100;
+  document.getElementById('quiz_progress_fill').style.width = `${progress}%`;
+  
+  document.getElementById('quiz_question').textContent = q.q;
+  
+  const optionsContainer = document.getElementById('quiz_options');
+  optionsContainer.innerHTML = '';
+  
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('div');
+    btn.className = 'quiz-option';
+    btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}.</span> <span>${opt}</span>`;
+    btn.onclick = () => selectOption(idx, btn);
+    optionsContainer.appendChild(btn);
+  });
+  
+  document.getElementById('quiz_feedback').textContent = '';
+  document.getElementById('next_btn').style.display = 'none';
+  document.getElementById('finish_btn').style.display = 'none';
+}
+
+function selectOption(idx, element) {
+  const q = currentQuiz.questions[currentQuestionIndex];
+  const allOptions = document.querySelectorAll('.quiz-option');
+  
+  // Disable clicks after selection
+  allOptions.forEach(opt => opt.style.pointerEvents = 'none');
+  
+  if (idx === q.a) {
+    element.classList.add('correct');
+    document.getElementById('quiz_feedback').innerHTML = '<span class="text-green-500">✅ Correct!</span>';
+    score++;
+  } else {
+    element.classList.add('wrong');
+    allOptions[q.a].classList.add('correct');
+    document.getElementById('quiz_feedback').innerHTML = '<span class="text-red-500">❌ Incorrect!</span>';
+  }
+  
+  if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+    document.getElementById('next_btn').style.display = 'block';
+  } else {
+    document.getElementById('finish_btn').style.display = 'block';
+  }
+}
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+function showResults() {
+  document.getElementById('quiz_session').style.display = 'none';
+  document.getElementById('quiz_results').style.display = 'block';
+  
+  document.getElementById('result_score').textContent = score;
+  document.getElementById('result_total').textContent = currentQuiz.questions.length;
+  
+  let msg = "Keep practicing!";
+  const percent = (score / currentQuiz.questions.length) * 100;
+  if (percent === 100) msg = "Perfect Score! You are a Python Master! 🐍";
+  else if (percent >= 80) msg = "Excellent job! Almost perfect.";
+  else if (percent >= 50) msg = "Good job! You're getting there.";
+  
+  document.getElementById('result_message').textContent = msg;
+}
+
+function exitQuiz() {
+  document.getElementById('quiz_session').style.display = 'none';
+  document.getElementById('quiz_results').style.display = 'none';
+  document.getElementById('quiz_dashboard').style.display = 'block';
+  initQuizDashboard();
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', initQuizDashboard);
+
+// Update showQuizzes to initialize dashboard
+const originalShowQuizzes = showQuizzes;
+showQuizzes = function() {
+    originalShowQuizzes();
+    initQuizDashboard();
+};
     </script>
 
 </body>
