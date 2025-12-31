@@ -13,11 +13,49 @@
         html {
             scroll-behavior: smooth;
         }
+         :root {
+            --bg-deep: #0a0a0f;
+            --primary: hsl(240, 100%, 70%);
+            --secondary: hsl(330, 100%, 65%);
+            --accent: hsl(180, 100%, 50%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-glow: 0 0 20px rgba(167, 139, 250, 0.3);
+         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        /* Buttons Update */
+        .btn-premium {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--text-glow);
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            z-index: -1;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-premium:hover::before {
+            transform: translateY(0);
         }
 
         body {
@@ -197,9 +235,115 @@
             border-radius: 8px;
             color: #9ca3af;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .learn-link:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        /* Select dropdown styling */
+        select.learn-link {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            cursor: pointer;
+            outline: none;
+        }
+
+        select.learn-link:hover {
+            background: #1f2937;
+            color: white;
+            border-color: #4b5563;
+        }
+
+        select.learn-link:focus {
+            background: #1f2937;
+            color: white;
+            border-color: #60a5fa;
+        }
+
+        /* Option styling */
+        select.learn-link option {
+            background: #111827;
+            color: #9ca3af;
+            padding: 8px;
+        }
+
+        select.learn-link option:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        /* Fix emoji sizing in headings */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.3;
+        }
+
+        /* Normalize emoji appearance in headings */
+        h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
+            display: inline-block;
+            vertical-align: baseline;
+            height: 1em;
+            width: 1em;
+        }
+
+        /* Expandable navigation sections */
+        details.nav-section {
+            margin-bottom: 0.5rem;
+        }
+
+        details.nav-section summary {
+            display: block;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            list-style: none;
+            user-select: none;
+        }
+
+        details.nav-section summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.nav-section summary::before {
+            content: '▶';
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+            font-size: 0.75rem;
+        }
+
+        details.nav-section[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        details.nav-section summary:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        details.nav-section .nav-sub-links {
+            padding-left: 1.5rem;
+        }
+
+        details.nav-section .nav-sub-links a {
+            display: block;
+            padding: 6px 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        details.nav-section .nav-sub-links a:hover {
             background: #1f2937;
             color: white;
         }
@@ -208,35 +352,44 @@
 
 <body class="min-h-screen flex items-center justify-center text-white" id="body">
 
-    <div id="login_container" style="display: block;">
-        <div id="login_screen" class="glass p-8 rounded-2xl shadow-2xl w-96 blur-4">
-            <h2 class="text-3xl font-bold text-center mb-6 text-white">
-                Welcome to PyLearn
-            </h2>
+    <!-- Login Container -->
+    <div id="login_container" class="fixed inset-0 flex items-center justify-center p-4 z-50">
+        <div id="login_screen" class="glass p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/10 relative overflow-hidden">
+            <!-- Decorative Glow -->
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-purple-500/20 blur-[80px]"></div>
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-cyan-500/20 blur-[80px]"></div>
 
-            <form id="loginForm" class="space-y-5">
-                <div>
-                    <label for="email" class="block text-sm mb-1">Email ID</label>
-                    <input id="email" type="text" placeholder="Enter your email"
-                        class="w-full mb-4 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-cyan-400 outline-none transition transform hover:scale-105">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm mb-1">Password</label>
-                    <input id="password" type="password" placeholder="Enter the PyLearn password for usage"
-                        class="w-full mb-6 p-3 rounded-xl text-black text-center focus:ring-2 focus:ring-fuchsia-400 outline-none transition transform hover:scale-105">
+            <div class="relative z-10">
 
-                </div>
+                <h2 class="text-4xl font-extrabold text-center mb-2 font-outfit hero-title">
+                    PyLearn
+                </h2>
+                <p class="text-slate-400 text-center mb-10 font-medium">Elevate Your Python Mastery</p>
 
-                <button type="submit"
-                    class="w-full py-2 mt-2 bg-gradient-to-r from-purple-500 via-pink-400 to-blue-400 text-white rounded-md font-semibold hover:opacity-90 transition-all"
-                    style="background: linear-gradient(135deg, #00b3ff, #f200ff);">
-                    Login
-                </button>
-            </form>
+                <form id="loginForm" class="space-y-6">
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-semibold text-slate-300 ml-1">Email</label>
+                        <input id="email" type="email" placeholder="name@example.com"
+                            class="w-full p-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-300 backdrop-blur-md">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-semibold text-slate-300 ml-1">Password</label>
+                        <input id="password" type="password" placeholder="••••••••"
+                            class="w-full p-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-300 backdrop-blur-md">
+                    </div>
 
+                    <button type="submit"
+                        class="w-full py-4 mt-4 btn-premium text-white rounded-2xl font-bold text-lg shadow-xl shadow-purple-500/20 tracking-wide">
+                        Sign In
+                    </button>
+                </form>
+
+                <p class="text-center mt-8 text-sm text-cyan-500">
+                    Trusted by over <span class="text-purple-400 font-bold">10,000</span> developers
+                </p>
+            </div>
         </div>
     </div>
-
     <!-- Home -->
     <div id="home_container" style="display: none;">
         <!-- Background -->
@@ -274,13 +427,14 @@
         <div class="flex flex-col md:flex-row items-center justify-between mt-32 px-8 lg:px-16 gap-12 mb-16">
             <!-- Left: Text Content -->
             <div class="flex-1 text-center md:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-white/5 text-sm font-medium text-purple-300 mb-4 animate-bounce">
+                    <span class="flex h-2 w-2 rounded-full bg-purple-400"></span>
+                    Now with Interactive Playground
+                </div>
                 <h1
                     class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600 drop-shadow-2xl leading-tight pb-2">
                     Welcome to PyLearn ✨
                 </h1>
-                <p class="text-lg md:text-xl text-gray-200 max-w-xl leading-relaxed">
-                    Learn Python interactively, solve quizzes, and play with code in our playground.
-                </p>
                 <button onclick="showLearn()"
                     class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 
                                 rounded-full font-semibold transition-all text-white shadow-lg hover:shadow-xl transform hover:scale-105">
@@ -403,93 +557,2402 @@
 
         <!-- ======== LEARN SIDEBAR (NEW) ======== -->
         <aside class="fixed top-20 left-0 w-64 h-[calc(100vh-5rem)]
-           bg-gray-950 border-r border-gray-800
-           overflow-y-auto px-4 py-6 z-20">
+        bg-gray-950 border-r border-gray-800
+        overflow-y-auto px-4 py-6 z-20">
 
             <h3 class="text-gray-300 font-bold mb-4">Python Basics</h3>
 
-            <a href="#intro" class="learn-link">Introduction</a>
+            <a href="#intro" class="learn-link">Start Coding</a>
+            <a href="#comments" class="learn-link">Comments</a>
             <a href="#variables" class="learn-link">Variables</a>
             <a href="#datatypes" class="learn-link">Data Types</a>
+            <a href="#numbers" class="learn-link">Numbers</a>
+            
+            <!-- Strings Expandable Section -->
+            <details class="nav-section">
+                <summary>Strings</summary>
+                <div class="nav-sub-links">
+                    <a href="#strings">Introduction</a>
+                    <a href="#slicing_string">Slicing</a>
+                    <a href="#modify_string">Modify</a>
+                    <a href="#format_string">Format</a>
+                    <a href="#escape_charecters">Escape Characters</a>
+                    <a href="#string_methods">Methods</a>
+                </div>
+            </details>
+
+            <a href="#booleans" class="learn-link">Booleans</a>
+            <a href="#operators" class="learn-link">Operators</a>
+
+            <h3 class="text-gray-300 font-bold mb-4 mt-6">Data Structures</h3>
+            
+            <!-- Lists Expandable Section -->
+            <details class="nav-section">
+                <summary>Lists</summary>
+                <div class="nav-sub-links">
+                    <a href="#lists">Introduction</a>
+                    <a href="#access_list_items">Access Items</a>
+                    <a href="#change_list_items">Change Items</a>
+                    <a href="#add_list_items">Add Items</a>
+                    <a href="#remove_list_items">Remove Items</a>
+                    <a href="#sort_lists">Sort Lists</a>
+                    <a href="#join_lists">Join Lists</a>
+                    <a href="#list_methods">Methods</a>
+                </div>
+            </details>
+
+            <a href="#tuples" class="learn-link">Tuples</a>
+            <a href="#sets" class="learn-link">Sets</a>
+            <a href="#dictionaries" class="learn-link">Dictionaries</a>
+            <a href="#dataStructuresComparison" class="learn-link">Data Structures Comparison</a>
+
+            <h3 class="text-gray-300 font-bold mb-4 mt-6">Control Flow</h3>
+            <a href="#if_else" class="learn-link">If-Else</a>
             <a href="#loops" class="learn-link">Loops</a>
             <a href="#functions" class="learn-link">Functions</a>
         </aside>
         <!-- ==================================== -->
 
-        <!-- Content (ONLY ml-64 added) -->
+        <!-- Content -->
         <div class="pt-32 px-8 lg:px-16 pb-16 ml-64">
 
+            <!-- INTRO -->
             <h1 id="intro" class="text-4xl md:text-5xl font-extrabold text-transparent
-        bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600
-        leading-tight pb-3 mb-8">
-                Python Tutorial
+            bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-600
+            leading-tight pb-3 mb-8">
+                ⚡ Start Coding with Python
             </h1>
 
-            <!-- SYNTAX -->
+            <!-- START CODING -->
             <div id="syntax" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
-        p-8 max-w-4xl border border-gray-800 mb-12">
+            p-8 max-w-4xl border border-gray-800 mb-12">
 
-                <h2 class="text-3xl font-bold text-white mb-4">Learn Python</h2>
-                <p class="text-lg text-gray-300 mb-3 leading-relaxed">
-                    Python is simple, powerful, and used to build apps, games, websites, and even AI.
+                <h2 class="text-3xl font-bold text-white mb-6">What is Python?</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Python is a beginner-friendly, powerful programming language used to build apps, games, websites, automation tools, and AI systems. It's one of the most popular languages in the world!
                 </p>
-                <p class="text-lg text-gray-300 mb-3 leading-relaxed">
-                    Example: Your first program!
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📝 Python Syntax</h3>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Python syntax is clean and easy to read. Unlike other languages, Python doesn't use curly braces or semicolons. Instead, it relies on <strong>indentation</strong> to define code blocks.
                 </p>
-                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print("Hello, World!")</code></pre>
-                <p class="text-gray-300">💡 <strong>Tip:</strong> `print()` shows output on the screen. Run it and
-                    celebrate 🎉</p>
+
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>print("Python is easy!")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Python is easy!')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-6">
+                    💡 <strong>Tip:</strong> Code runs from top to bottom. Indentation (spaces) tells Python which lines belong together.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🎯 Your First Program</h3>
+                <p class="text-gray-300 mb-4">
+                    Let's write the classic "Hello, World!" program:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>print("Hello, World!")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, World!')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-6">
+                    🎉 <strong>Congratulations!</strong> If this runs successfully, you're officially a Python programmer!
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">⌨️ Input & Output</h3>
+                <p class="text-gray-300 mb-4">
+                    Python can interact with users through input and output:
+                </p>
+                                        <pre class="bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono whitespace-pre-wrap"><code>name = input("Enter your name: ")
+print("Hello,", name)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Enter your name: Alex\nHello, Alex')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-gray-300 mb-2">
+                        💡 <code class="bg-gray-800 px-2 py-1 rounded">input()</code> - Gets data from the user
+                    </p>
+                    <p class="text-gray-300">
+                        💡 <code class="bg-gray-800 px-2 py-1 rounded">print()</code> - Displays output to the screen
+                    </p>
+                </div>
             </div>
+            <hr><br><br>
+            <!-- COMMENTS -->
+            <div id="comments" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-3xl font-bold text-white mb-6">💬 Comments</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Comments are notes in your code that Python ignores. They help you and other developers understand what the code does.
+                </p>
 
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Single-Line Comments</h3>
+                <p class="text-gray-300 mb-4">
+                    Use the <code class="bg-gray-800 px-2 py-1 rounded">#</code> symbol to create a single-line comment:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code># This is a comment
+age = 14  # This stores the user's age
+print(age)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '14')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Multi-Line Comments</h3>
+                <p class="text-gray-300 mb-4">
+                    For longer explanations, use triple quotes (<code class="bg-gray-800 px-2 py-1 rounded">"""</code> or <code class="bg-gray-800 px-2 py-1 rounded">'''</code>):
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>"""This is a multi-line comment.
+It can span multiple lines.
+Useful for longer explanations."""
+print("Comments don't affect output")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Comments don\'t affect output')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        💡 <strong>Best Practice:</strong> Write clear comments to explain <em>why</em> you're doing something, not just <em>what</em> you're doing.
+                    </p>
+                </div>
+            </div>
+            <hr><br><br>
             <!-- VARIABLES -->
             <div id="variables" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
-        p-8 max-w-4xl border border-gray-800 mb-12">
-                <h2 class="text-2xl font-bold mb-3">Variables</h2>
-                <p class="text-gray-300 mb-2">
-                    Variables store data. Think of them as boxes that hold values.
-                </p>
-                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 14
-name = "Alex"</code></pre>
-                <p class="text-gray-300">💡 Use `=` to store values. Not math!</p>
-            </div>
+            p-8 max-w-4xl border border-gray-800 mb-12">
 
+                <h2 class="text-3xl font-bold text-white mb-6">📦 Variables</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Variables are containers that store data values. Think of them as labeled boxes where you can keep information to use later in your program.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating Variables</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>age = 14
+name = "Alex"
+is_student = True
+print(age, name, is_student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '14 Alex True')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📋 Variable Naming Rules</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-400 text-xl">✓</span>
+                        <p class="text-gray-300">Must start with a letter or underscore (<code class="bg-gray-800 px-2 py-1 rounded">_</code>)</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-400 text-xl">✓</span>
+                        <p class="text-gray-300">Can contain letters, numbers, and underscores (A-z, 0-9, _)</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-400 text-xl">✓</span>
+                        <p class="text-gray-300">Are case-sensitive (<code class="bg-gray-800 px-2 py-1 rounded">age</code>, <code class="bg-gray-800 px-2 py-1 rounded">Age</code>, and <code class="bg-gray-800 px-2 py-1 rounded">AGE</code> are different)</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-red-400 text-xl">✗</span>
+                        <p class="text-gray-300">Cannot start with a number</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-red-400 text-xl">✗</span>
+                        <p class="text-gray-300">Cannot use Python keywords (like <code class="bg-gray-800 px-2 py-1 rounded">if</code>, <code class="bg-gray-800 px-2 py-1 rounded">for</code>, <code class="bg-gray-800 px-2 py-1 rounded">while</code>)</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Displaying Variables</h3>
+                <p class="text-gray-300 mb-4">
+                    Use <code class="bg-gray-800 px-2 py-1 rounded">print()</code> to display variable values:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>x = 14
+print(x)    # Output: 14</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '14')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">⚡ Multiple Assignment</h3>
+                <p class="text-gray-300 mb-4">
+                    Assign the same value to multiple variables:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>x = y = z = 100
+print(x, y, z)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '100 100 100')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-4">
+                    Assign multiple values to multiple variables:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>name, age, is_student = "Alex", 14, True
+print(name, age, is_student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Alex 14 True')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        💡 <strong>Best Practice:</strong> Use descriptive variable names like <code class="bg-gray-800 px-2 py-1 rounded">user_age</code> instead of <code class="bg-gray-800 px-2 py-1 rounded">x</code> to make your code more readable.
+                    </p>
+                </div>
+            </div>
+            <hr><br><br>
             <!-- DATA TYPES -->
             <div id="datatypes" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
-        p-8 max-w-4xl border border-gray-800 mb-12">
-                <h2 class="text-2xl font-bold mb-3">Data Types</h2>
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-2xl font-bold mb-3">🔢 Data Types</h2>
                 <p class="text-gray-300 mb-2">
-                    Common types: int, float, string, list, tuple, dict
+                    Data types define what kind of data a variable holds.
                 </p>
-                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>marks = [80, 90, 75]   # list
-student = {"name": "Sam", "age": 15}  # dictionary</code></pre>
-                <p class="text-gray-300">💡 Lists = ordered, Dictionaries = key-value pairs</p>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Python has many in-built data types:</h3>
+
+                <ol>
+                    <li>
+                        <p class="text-l font-bold mb-2">Text Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">str</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Numeric Types - <code
+                                class="bg-gray-800 rounded-2xl p-1">int, float, complex</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Boolean Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">bool</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Sequence Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">list, tuple, range</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Mapping Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">dict</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Set Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">set, frozenset</code></p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">None Type - <code
+                                class="bg-gray-800 rounded-2xl p-1">NoneType</code></p>
+                    </li><br><br>
+                </ol>
+
+
+
+                <div class="overflow-x-auto mb-4">
+                    <table class="w-full bg-gray-800/50 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Example</th>
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = "Hello"</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">str</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = 14</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">int</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = 14.5</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">float</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = 14j</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">complex</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = True</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">bool</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = [1, 2, 3]</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">list</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = (1, 2, 3)</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">tuple</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = {"name": "Alex", "age": 14}</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">dict</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = {1, 2, 3}</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">set</code></td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">x = None</code></td>
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">NoneType</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-300">
+                    💡 Python has dynamic typing, so you don't need to declare types explicitly.
+                </p><br>
+
+                <p class="text-gray-300">
+                    💡 You can check the type of a variable using `type()`. For example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 14
+print(type(age))  # Output: <code>&lt;class 'int'&gt;</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '&lt;class \'int\'&gt;')">Try it</button>
+                        </div></pre><br>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">
+                    isinstance()
+                </h3>
+                <p class="text-gray-300">
+                    💡 You can check if a variable is of a specific type using `isinstance()`. For example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 14
+print(isinstance(age, int))  # Output: True</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True')">Try it</button>
+                        </div></pre><br><br>
+
+                <p class="text-gray-300">You can change the type of a variable by
+                    reassigning it to a value of a different type:</p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 14
+age = "14"
+#OR
+age = 14
+age = str(age)
+</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'No output (assignment)')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300">
+                    💡 You can use the 'int()', 'str()', 'float()', and 'bool()', 'list()', 'tuple()', 'set()',
+                    'dict()', functions to convert values to
+                    different types.
+                </p>
+            </div>
+            <hr><br><br>
+            <!--NUMBERS-->
+            <div id="numbers" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Numbers</h2>
+                <p class="text-gray-300 mb-2">
+                    Python has three numeric types:
+                </p>
+                <ul>
+                    <li>
+                        <p class="text-l font-bold mb-2">Integers - <code class="bg-gray-800 rounded-2xl p-1">int</code>
+                        </p>
+                        <p class="text-gray-300 mb-2">
+                            💡 Integers are whole numbers without a decimal point.
+                            Example: <code class="bg-gray-800 rounded-2xl p-1">x = 14</code>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Floats - <code class="bg-gray-800 rounded-2xl p-1">float</code>
+                        </p>
+                        <p class="text-gray-300 mb-2">
+                            💡 Floats are numbers with a decimal point.
+                            Example: <code class="bg-gray-800 rounded-2xl p-1">x = 14.5</code>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text-l font-bold mb-2">Complex - <code
+                                class="bg-gray-800 rounded-2xl p-1">complex</code></p>
+                        <p class="text-gray-300 mb-2">
+                            💡 Complex numbers are numbers with a real and imaginary part.
+                            Example: <code class="bg-gray-800 rounded-2xl p-1">x = 5j</code>
+                        </p>
+                    </li>
+                </ul>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Type Conversion</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 You can convert one data type to another using the int(), float(), and complex() functions.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>x = 1    # int
+y = 2.8  # float
+z = 1j   # complex
+
+#convert from int to float:
+a = float(x)
+
+#convert from float to int:
+b = int(y)
+
+#convert from int to complex:
+c = complex(x)
+
+print(a)
+print(b)
+print(c)
+
+print(type(a))  # Output: &lt;class 'float'&gt;
+print(type(b))  # Output: &lt;class 'int'&gt;
+print(type(c))  # Output: &lt;class 'complex'&gt;</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '&lt;class \'float\'&gt;\\n&lt;class \'int\'&gt;\\n&lt;class \'complex\'&gt;')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Random Number</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 Python does not have a random() function to make a random number, but Python has a built-in
+                    module called random that can be used to make random numbers:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>import random
+
+print(random.randrange(1, 10))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '5')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Rounding Numbers</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 You can round a number using the round() function:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print(round(2.5))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '2')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 You can also round a number to be always rounded up or down:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>import math
+
+print(math.floor(2.5))  # Output: 2 Rounds down</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '2 Rounds down')">Try it</button>
+                        </div></pre>
+            </div>
+            <hr><br><br>
+
+            <!--Strings-->
+            <div id="strings" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-2xl font-bold mb-3">Strings</h2>
+                <p class="text-gray-300 mb-2">
+                    💡 Strings in python are surrounded by either single quotation marks, or double quotation marks.
+                </p>
+                <p class="text-gray-300 mb-2"><code>"Alex"</code> is the same as <code>'Alex'</code></p>
+                <p class="text-gray-300 mb-2">Example:</p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print("Hello")
+print('Hello')</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello\nHello')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Quotes Inside Quotes</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 You can use quotes inside a string, as long as they don't match the quotes surrounding the
+                    string:
+                </p>
+                <p class="text-gray-300 mb-2">Example:</p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print("It's alright")
+print("He is called 'Johnny'")
+print('He is called "Johnny"')</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'It\'s alright\nHe is called \'Johnny\'\nHe is called "Johnny"')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Assign String to a Variable</h3>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>name = "Alex"
+print(name)
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Alex')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Multiline Strings</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 You can assign a multiline string to a variable by using three quotes:
+                </p>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>a = """Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua."""
+print(a)
+</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua.')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">💡 You can also use 3 single quotes insted:</p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>a = '''Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua.'''
+print(a)
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua.')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Strings are Arrays</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 However, Python does not have a character data type, a single character is simply a string with a
+                    length of 1.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    💡 Square brackets can be used to access elements of the string.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    💡 The first character has index 0, the second character has index 1, and so on.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>a = "Hello, World!"
+print(a[0])  # Output: H
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'H')">Try it</button>
+                        </div></pre><br>
+
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">String Length</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 To get the length of a string, use the len() function.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>a = "Hello, World!"
+print(len(a))  # Output: 13
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '13')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2">Check String</h3>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">in</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 To check if a certain phrase or character is present in a string, we can use the keyword
+                    <code>in</code>.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "The best things in life are free!"
+print("free" in txt)    # Output: True
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 If the phrase or character is present, the expression returns True, otherwise it returns False.
+                </p>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">not in</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 To check if a certain phrase or character is not present in a string, we can use the keyword
+                    <code>not in</code>.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "The best things in life are free!"
+print("expensive" not in txt)    # Output: True
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 If the phrase or character is not present, the expression returns True, otherwise it returns
+                    False.
+                </p>
+                <br>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2" id="slicing_string">Slicing</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 You can return a range of characters by using the slice operator <code>[]</code>.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    Example:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt[2:5])    # Output: llo
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'llo')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 The first number is the index of the first character, and the second number is the index of the
+                    last character.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    💡 If you omit the first number, the slice will start at the beginning of the string.
+                </p>
+                <p class="text-gray-300 mb-2">
+                    💡 If you omit the second number, the slice will go to the end of the string.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt[:5])    # Output: Hello
+print(txt[2:])    # Output: llo, World!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello\\nllo, World!')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 You can also use negative indexing to start the slice from the end of the string.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt[-5:-2])    # Output: orl
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'orl')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2" id="modify_string">Modify Strings</h3>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Upper Case</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>upper()</code> method to convert a string to uppercase.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt.upper())    # Output: HELLO, WORLD!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'HELLO, WORLD!')">Try it</button>
+                        </div></pre>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Lower Case</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>lower()</code> method to convert a string to lowercase.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt.lower())    # Output: hello, world!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'hello, world!')">Try it</button>
+                        </div></pre>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Remove Whitespace</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>strip()</code> method to remove whitespace from the beginning and end of a string.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = " Hello, World! "
+print(txt.strip())    # Output: Hello, World!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, World!')">Try it</button>
+                        </div></pre>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Replace String</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>replace()</code> method to replace a part of a string.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt.replace("World", "Python"))    # Output: Hello, Python!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, Python!')">Try it</button>
+                        </div></pre>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Split String</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>split()</code> method to split a string into a list.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt.split(","))    # Output: ['Hello', ' World!']
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'Hello\', \' World!\']')">Try it</button>
+                        </div></pre><br>
+
+                <h6 class="text-l font-semibold text-purple-300 mb-2">Concatenate String</h6>
+                <p class="text-gray-300 mb-2">
+                    To concatenate, or combine, two strings you can use the + operator.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt + " Python!")    # Output: Hello, World! Python!
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, World! Python!')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 You can also add multiple strings.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>txt = "Hello, World!"
+print(txt + " Python!" + " How are you?")    # Output: Hello, World! Python! How are you?
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, World! Python! How are you?')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2" id="format_string">Format String</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 We can combine strings and numbers by using f-strings!
+                </p>
+                <h6 class="text-l font-semibold text-purple-300 mb-2">F-String</h6>
+                <p class="text-gray-300 mb-2">
+                    💡 To specify a string as an f-string, simply put an <code>f</code> in front of the string literal,
+                    and add curly brackets <code>{}</code> as placeholders for variables and other operations.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 36
+txt = f"My name is John, I am {age}"
+print(txt)
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'My name is John, I am 36')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-2">
+                    💡 You can also use expressions inside the curly brackets.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>age = 36
+txt = f"My name is John, I am {age + 5}"
+print(txt)
+                </code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'My name is John, I am 41')">Try it</button>
+                        </div></pre><br>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2" id="escape_charecters">Escape Charecters</h3>
+                <p class="text-gray-300 mb-2">
+                    💡 Use the <code>\</code> to escape special charecters.
+                </p>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Code</th>
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\'</code></td>
+                                <td class="p-4">Single Quote</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\\</code></td>
+                                <td class="p-4">Backslash</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\n</code></td>
+                                <td class="p-4">New Line</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\r</code></td>
+                                <td class="p-4">Carriage Return</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\t</code></td>
+                                <td class="p-4">Tab</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\b</code></td>
+                                <td class="p-4">Backspace</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">\f</code></td>
+                                <td class="p-4">Form Feed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-2" id="string_methods">String Methods</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Method</th>
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">lower()</code></td>
+                                <td class="p-4">Converts string to lower case</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">upper()</code></td>
+                                <td class="p-4">Converts string to upper case</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">capitalize()</code></td>
+                                <td class="p-4">Converts first character to upper case</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">title()</code></td>
+                                <td class="p-4">Converts first character of each word to upper case</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">strip()</code></td>
+                                <td class="p-4">Removes spaces from both ends</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">split()</code></td>
+                                <td class="p-4">Splits string into a list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">join()</code></td>
+                                <td class="p-4">Joins elements of an iterable into a string</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">replace()</code></td>
+                                <td class="p-4">Replaces part of a string with another</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">find()</code></td>
+                                <td class="p-4">Finds position of a value (returns -1 if not found)</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">startswith()</code></td>
+                                <td class="p-4">Checks if string starts with a value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">endswith()</code></td>
+                                <td class="p-4">Checks if string ends with a value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">count()</code></td>
+                                <td class="p-4">Counts occurrences of a value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">isdigit()</code></td>
+                                <td class="p-4">Checks if all characters are digits</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">isalpha()</code></td>
+                                <td class="p-4">Checks if all characters are alphabets</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">isalnum()</code></td>
+                                <td class="p-4">Checks if characters are alphanumeric</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+            <hr><br><br>
+            <!--BOOLEANS-->
+            <div id="booleans" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-3xl font-bold text-white mb-6">✅ Booleans</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Booleans represent one of two values: <code class="bg-gray-800 px-2 py-1 rounded">True</code> or <code class="bg-gray-800 px-2 py-1 rounded">False</code>. They're essential for making decisions in your code.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Comparison Operations</h3>
+                <p class="text-gray-300 mb-4">
+                    When you compare values, Python returns a Boolean result:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>print(10 > 9)     # True
+print(10 == 9)    # False
+print(10 < 9)     # False</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Using Booleans in Conditions</h3>
+                <p class="text-gray-300 mb-4">
+                    Booleans are commonly used in if-else statements:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>a = 200
+b = 33
+
+if b > a:
+    print("b is greater than a")
+else:
+    print("b is not greater than a")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'b is not greater than a')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">The bool() Function</h3>
+                <p class="text-gray-300 mb-4">
+                    Convert any value to a Boolean using <code class="bg-gray-800 px-2 py-1 rounded">bool()</code>:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>print(bool("Hello"))    # True
+print(bool(15))         # True
+print(bool(0))          # False
+print(bool(""))         # False</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nTrue\nFalse\nFalse')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📊 Truthy vs Falsy Values</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                        <h4 class="text-green-300 font-semibold mb-2">✓ Truthy (True)</h4>
+                        <ul class="text-gray-300 space-y-1 text-sm">
+                            <li>• Non-empty strings</li>
+                            <li>• Numbers (except 0)</li>
+                            <li>• Non-empty lists, tuples, sets</li>
+                            <li>• Non-empty dictionaries</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+                        <h4 class="text-red-300 font-semibold mb-2">✗ Falsy (False)</h4>
+                        <ul class="text-gray-300 space-y-1 text-sm">
+                            <li>• Empty strings (<code class="bg-gray-800 px-1 rounded">""</code>)</li>
+                            <li>• Zero (<code class="bg-gray-800 px-1 rounded">0</code>)</li>
+                            <li>• Empty collections (<code class="bg-gray-800 px-1 rounded">[]</code>, <code class="bg-gray-800 px-1 rounded">{}</code>)</li>
+                            <li>• <code class="bg-gray-800 px-1 rounded">None</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        💡 <strong>Remember:</strong> Almost everything with content is <code class="bg-gray-800 px-2 py-1 rounded">True</code>, and empty or zero values are <code class="bg-gray-800 px-2 py-1 rounded">False</code>.
+                    </p>
+                </div>
+            </div>
+            <hr><br><br>
+            <!--Operators-->
+            <div id="operators" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-2xl font-bold mb-3">⚙️ Operators</h2>
+                <p class="text-gray-300 mb-3">
+                    Operators are used to perform operations on values or variables.
+                </p>
+                <p class="text-gray-300 mb-3">
+                    💡 Python has different types of operators:
+                </p>
+                <p class="text-gray-300 mb-3">
+                    1) Arithmatic operators: +, -, *, /, %, **, //
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print(10 + 5)    # Addition
+print(10 - 5)    # Subtraction
+print(10 * 5)    # Multiplication
+print(10 / 5)    # Division
+print(10 % 5)    # Modulus
+print(10 ** 5)   # Exponentiation
+print(10 // 5)   # Floor Division</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Floor Division')">Try it</button>
+                        </div></pre>
+                <p class="text-gray-300 mb-3">
+                    2) Comparison operators: ==, !=, >, <,>=, <= </p>
+                            <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print(5 == 5)
+print(5 != 5)
+print(5 > 5)
+print(5 < 5)
+print(5 >= 5)
+print(5 <= 5)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True')">Try it</button>
+                        </div></pre>
+                            <p class="text-gray-300 mb-3">
+                                3) Assignment operators: =, +=, -=, *=, /=, %=, **=, //=
+                            </p>
+                            <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>x = 5
+x += 3
+print(x)
+x *= 2
+print(x)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '8\n16')">Try it</button>
+                        </div></pre>
+                            <p class="text-gray-300 mb-3">
+                                4) Logical operators: and, or, not
+                            </p>
+                            <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print(5 == 5 and 5 < 5)
+print(5 == 5 or 5 < 5)
+print(not 5 == 5)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'False\nTrue\nFalse')">Try it</button>
+                        </div></pre>
+                            <p class="text-gray-300 mb-3">
+                                5) Membership operators: in, not in
+                            </p>
+                            <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print("a" in "apple")
+print("a" not in "apple")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+                            <p class="text-gray-300 mb-3">
+                                6) Identity operators: is, is not
+                            </p>
+                            <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>print(5 is 5)
+print(5 is not 5)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+
+            </div>
+            <hr><br><br>
+            <!--LISTS-->
+            <div id="lists" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-3xl font-bold text-white mb-6">📋 Lists</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Lists are one of Python's most versatile data structures. They store multiple items in a single variable and allow you to organize, access, and manipulate collections of data efficiently.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating a List</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+print(fruits[0])    # apple
+print(fruits[1])    # banana
+print(fruits[2])    # cherry</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple\nbanana\ncherry')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">✨ Key Features of Lists</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Ordered</h4>
+                                <p class="text-gray-300 text-sm">Items have a defined order with index positions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Mutable</h4>
+                                <p class="text-gray-300 text-sm">You can add, remove, or modify items</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Flexible Types</h4>
+                                <p class="text-gray-300 text-sm">Can store any data type (int, float, string, etc)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Allows Duplicates</h4>
+                                <p class="text-gray-300 text-sm">Same value can appear multiple times</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📏 List Length</h3>
+                <p class="text-gray-300 mb-4">
+                    Use the <code class="bg-gray-800 px-2 py-1 rounded">len()</code> function to find how many items are in a list:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+print(len(fruits))    # Output: 3</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '3')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="access_list_items">🔍 Access List Items</h3>
+                <p class="text-gray-300 mb-4">
+                    Access individual items in a list using their index number. Remember, Python uses <strong>zero-based indexing</strong> - the first item is at index 0.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+print(fruits[0])    # apple (first item)
+print(fruits[1])    # banana (second item)
+print(fruits[2])    # cherry (third item)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple (first item)\nbanana (second item)\ncherry (third item)')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Remember:</strong> List indexing starts at 0, not 1!
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Negative Indexing</h4>
+                <p class="text-gray-300 mb-4">
+                    Use negative indices to access items from the end of the list. <code class="bg-gray-800 px-2 py-1 rounded">-1</code> refers to the last item:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+print(fruits[-1])    # cherry (last item)
+print(fruits[-2])    # banana (second from end)
+print(fruits[-3])    # apple (third from end)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'cherry (last item)\nbanana (second from end)\napple (third from end)')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Slicing Lists</h4>
+                <p class="text-gray-300 mb-4">
+                    Extract a range of items using the slice operator <code class="bg-gray-800 px-2 py-1 rounded">[start:end]</code>:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
+print(fruits[2:5])    # ['cherry', 'orange', 'kiwi']
+print(fruits[:4])     # ['apple', 'banana', 'cherry', 'orange']
+print(fruits[2:])     # ['cherry', 'orange', 'kiwi', 'melon', 'mango']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'cherry\', \'orange\', \'kiwi\']\n[\'apple\', \'banana\', \'cherry\', \'orange\']\n[\'cherry\', \'orange\', \'kiwi\', \'melon\', \'mango\']')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        ⚠️ <strong>Note:</strong> The end index is exclusive - <code class="bg-gray-800 px-2 py-1 rounded">fruits[2:5]</code> includes indices 2, 3, and 4, but not 5.
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Negative Slicing</h4>
+                <p class="text-gray-300 mb-4">
+                    You can also use negative indices in slices:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
+print(fruits[-4:-1])    # ['orange', 'kiwi', 'melon']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'orange\', \'kiwi\', \'melon\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Check if Item Exists</h4>
+                <p class="text-gray-300 mb-4">
+                    Use the <code class="bg-gray-800 px-2 py-1 rounded">in</code> keyword to check if an item is in a list:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+print("banana" in fruits)      # True
+print("grape" in fruits)       # False</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="change_list_items">✏️ Change List Items</h3>
+                <p class="text-gray-300 mb-4">
+                    Lists are mutable, meaning you can modify their contents after creation. Change a specific item by referring to its index:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits[1] = "orange"
+print(fruits)    # ['apple', 'orange', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\', \'cherry\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Change a Range of Values</h4>
+                <p class="text-gray-300 mb-4">
+                    Replace multiple items at once using slice notation:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry", "lemon"]
+fruits[1:3] = ["orange", "kiwi"]
+print(fruits)    # ['apple', 'orange', 'kiwi', 'lemon']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\', \'kiwi\', \'lemon\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Flexible Replacement</h4>
+                <p class="text-gray-300 mb-4">
+                    The number of new items doesn't have to match the number being replaced:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code># Replace 1 item with 3 items (list grows)
+fruits = ["apple", "banana", "cherry"]
+fruits[1:2] = ["orange", "kiwi", "melon"]
+print(fruits)    # ['apple', 'orange', 'kiwi', 'melon', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\', \'kiwi\', \'melon\', \'cherry\']')">Try it</button>
+                        </div></pre>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code># Replace 2 items with 1 item (list shrinks)
+fruits = ["apple", "banana", "cherry"]
+fruits[1:3] = ["orange"]
+print(fruits)    # ['apple', 'orange']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Insert at Position</h4>
+                <p class="text-gray-300 mb-4">
+                    Use <code class="bg-gray-800 px-2 py-1 rounded">insert()</code> to add an item at a specific position without replacing:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits.insert(1, "orange")
+print(fruits)    # ['apple', 'orange', 'banana', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\', \'banana\', \'cherry\']')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Tip:</strong> <code class="bg-gray-800 px-2 py-1 rounded">insert()</code> shifts existing items to the right, while slice assignment replaces items.
+                    </p>
+                </div>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="add_list_items">➕ Add List Items</h3>
+                <p class="text-gray-300 mb-6">
+                    Python provides several methods to add items to a list. Choose the right one based on your needs.
+                </p>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">append() - Add to End</h4>
+                <p class="text-gray-300 mb-4">
+                    Use <code class="bg-gray-800 px-2 py-1 rounded">append()</code> to add a single item to the end of the list:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits.append("orange")
+print(fruits)    # ['apple', 'banana', 'cherry', 'orange']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'banana\', \'cherry\', \'orange\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">insert() - Add at Position</h4>
+                <p class="text-gray-300 mb-4">
+                    Use <code class="bg-gray-800 px-2 py-1 rounded">insert()</code> to add an item at a specific index:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits.insert(1, "orange")    # Insert at index 1
+print(fruits)    # ['apple', 'orange', 'banana', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'orange\', \'banana\', \'cherry\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">extend() - Add Multiple Items</h4>
+                <p class="text-gray-300 mb-4">
+                    Use <code class="bg-gray-800 px-2 py-1 rounded">extend()</code> to add all elements from another iterable:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+more_fruits = ["orange", "kiwi"]
+fruits.extend(more_fruits)
+print(fruits)    # ['apple', 'banana', 'cherry', 'orange', 'kiwi']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'banana\', \'cherry\', \'orange\', \'kiwi\']')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Quick Reference:</strong> Use <code class="bg-gray-800 px-2 py-1 rounded">append()</code> for one item, <code class="bg-gray-800 px-2 py-1 rounded">insert()</code> for specific position, <code class="bg-gray-800 px-2 py-1 rounded">extend()</code> for multiple items.
+                    </p>
+                </div>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="remove_list_items">➖ Remove List Items</h3>
+                <p class="text-gray-300 mb-6">
+                    Python offers multiple ways to remove items from a list. Each method serves a different purpose.
+                </p>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">remove() - Remove by Value</h4>
+                <p class="text-gray-300 mb-4">
+                    Removes the first occurrence of the specified value:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits.remove("banana")
+print(fruits)    # ['apple', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'cherry\']')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-4">
+                    If there are duplicates, only the first one is removed:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry", "banana"]
+fruits.remove("banana")
+print(fruits)    # ['apple', 'cherry', 'banana']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'cherry\', \'banana\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">pop() - Remove by Index</h4>
+                <p class="text-gray-300 mb-4">
+                    Removes and returns the item at the specified index (or the last item if no index is given):
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+removed = fruits.pop(1)    # Remove item at index 1
+print(fruits)              # ['apple', 'cherry']
+print(removed)             # banana</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'cherry\']\nbanana')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">del - Delete by Index or Slice</h4>
+                <p class="text-gray-300 mb-4">
+                    Use the <code class="bg-gray-800 px-2 py-1 rounded">del</code> keyword to remove items by index:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+del fruits[1]
+print(fruits)    # ['apple', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'cherry\']')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-4">
+                    You can also delete the entire list:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+del fruits
+# fruits no longer exists!</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'fruits no longer exists!')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">clear() - Remove All Items</h4>
+                <p class="text-gray-300 mb-4">
+                    Empties the list but keeps the list object:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+fruits.clear()
+print(fruits)    # []</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[]')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Quick Reference:</strong> Use <code class="bg-gray-800 px-2 py-1 rounded">remove()</code> for value, <code class="bg-gray-800 px-2 py-1 rounded">pop()</code> for index with return, <code class="bg-gray-800 px-2 py-1 rounded">del</code> for index, <code class="bg-gray-800 px-2 py-1 rounded">clear()</code> to empty list.
+                    </p>
+                </div>
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="sort_lists">🔄 Sort Lists</h3>
+                <p class="text-gray-300 mb-6">
+                    Python provides powerful methods to sort and organize list items in various ways.
+                </p>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Alphabetical/Numerical Sorting</h4>
+                <p class="text-gray-300 mb-4">
+                    The <code class="bg-gray-800 px-2 py-1 rounded">sort()</code> method sorts the list in ascending order by default:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["orange", "mango", "kiwi", "pineapple", "banana"]
+fruits.sort()
+print(fruits)    # ['banana', 'kiwi', 'mango', 'orange', 'pineapple']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'banana\', \'kiwi\', \'mango\', \'orange\', \'pineapple\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Reverse Order</h4>
+                <p class="text-gray-300 mb-4">
+                    Sort in descending order using the <code class="bg-gray-800 px-2 py-1 rounded">reverse=True</code> parameter:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["orange", "mango", "kiwi", "pineapple", "banana"]
+fruits.sort(reverse=True)
+print(fruits)    # ['pineapple', 'orange', 'mango', 'kiwi', 'banana']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'pineapple\', \'orange\', \'mango\', \'kiwi\', \'banana\']')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-4">
+                    Or use <code class="bg-gray-800 px-2 py-1 rounded">reverse()</code> to reverse the current order:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["orange", "mango", "kiwi"]
+fruits.reverse()
+print(fruits)    # ['kiwi', 'mango', 'orange']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'kiwi\', \'mango\', \'orange\']')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Case-Insensitive Sorting</h4>
+                <p class="text-gray-300 mb-4">
+                    By default, <code class="bg-gray-800 px-2 py-1 rounded">sort()</code> is case-sensitive. Use <code class="bg-gray-800 px-2 py-1 rounded">key=str.lower</code> for case-insensitive sorting:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ["banana", "Orange", "Kiwi", "cherry"]
+fruits.sort(key=str.lower)
+print(fruits)    # ['banana', 'cherry', 'Kiwi', 'Orange']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'banana\', \'cherry\', \'Kiwi\', \'Orange\']')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Tip:</strong> <code class="bg-gray-800 px-2 py-1 rounded">sort()</code> modifies the list in place. Use <code class="bg-gray-800 px-2 py-1 rounded">sorted()</code> to create a new sorted list without changing the original.
+                    </p>
+                </div>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📋 Copy Lists</h3>
+                <p class="text-gray-300 mb-6">
+                    Creating a copy of a list is important when you want to modify one without affecting the other. Python offers several methods:
+                </p>
+
+                <div class="space-y-4 mb-6">
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-purple-300 font-semibold mb-2">Method 1: copy()</h4>
+                        <pre class="whitespace-pre-wrap bg-gray-900 text-gray-200 p-3 rounded font-mono text-sm"><code>original = ["apple", "banana", "cherry"]
+copy_list = original.copy()
+print(copy_list)    # ['apple', 'banana', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'banana\', \'cherry\']')">Try it</button>
+                        </div></pre>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-purple-300 font-semibold mb-2">Method 2: list()</h4>
+                        <pre class="whitespace-pre-wrap bg-gray-900 text-gray-200 p-3 rounded font-mono text-sm"><code>original = ["apple", "banana", "cherry"]
+copy_list = list(original)
+print(copy_list)    # ['apple', 'banana', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'banana\', \'cherry\']')">Try it</button>
+                        </div></pre>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-purple-300 font-semibold mb-2">Method 3: Slice [:]</h4>
+                        <pre class="whitespace-pre-wrap bg-gray-900 text-gray-200 p-3 rounded font-mono text-sm"><code>original = ["apple", "banana", "cherry"]
+copy_list = original[:]
+print(copy_list)    # ['apple', 'banana', 'cherry']</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'apple\', \'banana\', \'cherry\']')">Try it</button>
+                        </div></pre>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="join_lists">🔗 Join Lists</h3>
+                <p class="text-gray-300 mb-6">
+                    Combine multiple lists into one using different methods:
+                </p>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Using the + Operator</h4>
+                <p class="text-gray-300 mb-4">
+                    The simplest way to concatenate lists:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>list1 = ["a", "b", "c"]
+list2 = [1, 2, 3]
+combined = list1 + list2
+print(combined)    # ['a', 'b', 'c', 1, 2, 3]</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'a\', \'b\', \'c\', 1, 2, 3]')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Using extend()</h4>
+                <p class="text-gray-300 mb-4">
+                    Add all elements from one list to another:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>list1 = ["a", "b", "c"]
+list2 = [1, 2, 3]
+list1.extend(list2)
+print(list1)    # ['a', 'b', 'c', 1, 2, 3]</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'a\', \'b\', \'c\', 1, 2, 3]')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3" id="list_methods">📚 List Methods Reference</h3>
+                <p class="text-gray-300 mb-4">
+                    Here's a complete reference of all built-in list methods in Python:
+                </p>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Method</th>
+                                <th class="text-left p-4 text-cyan-300 font-semibold">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">append()</code></td>
+                                <td class="p-4">Adds an element at the end of the list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">clear()</code></td>
+                                <td class="p-4">Removes all elements from the list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">copy()</code></td>
+                                <td class="p-4">Returns a shallow copy of the list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">count()</code></td>
+                                <td class="p-4">Returns the number of elements with the specified value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">extend()</code></td>
+                                <td class="p-4">Adds elements from an iterable to the end of the list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">index()</code></td>
+                                <td class="p-4">Returns the index of the first element with the specified value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">insert()</code></td>
+                                <td class="p-4">Adds an element at the specified position</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">pop()</code></td>
+                                <td class="p-4">Removes and returns the element at the specified position</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">remove()</code></td>
+                                <td class="p-4">Removes the first item with the specified value</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">reverse()</code></td>
+                                <td class="p-4">Reverses the order of the list</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code class="bg-gray-900 px-2 py-1 rounded">sort()</code></td>
+                                <td class="p-4">Sorts the list in ascending order</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        🎉 <strong>Congratulations!</strong> You now know all the essential list operations in Python. Lists are one of the most powerful and frequently used data structures. Practice using them to become proficient!
+                    </p>
+                </div>
+                </div>
+            <hr><br><br>
+            <!-- TUPLES -->
+            <div id="tuples" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-3xl font-bold text-white mb-6">📦 Tuples</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Tuples are one of Python's built-in data types used to store multiple items in a single variable.
+                    They are similar to lists, but the key difference is that tuples are <strong>immutable</strong>.
+                </p>
+
+                <!-- Creating -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating a Tuple</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+print(fruits[0])   # apple
+print(fruits[1])   # banana
+print(fruits[2])   # cherry</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple\nbanana\ncherry')">Try it</button>
+                        </div></pre>
+
+                <!-- Key Features -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">✨ Key Features of Tuples</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Ordered</h4>
+                        <p class="text-gray-300 text-sm">Items have a fixed order</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Immutable</h4>
+                        <p class="text-gray-300 text-sm">Items cannot be changed after creation</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Allows Duplicates</h4>
+                        <p class="text-gray-300 text-sm">Same value can appear multiple times</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Any Data Type</h4>
+                        <p class="text-gray-300 text-sm">Can store mixed data types</p>
+                    </div>
+                </div>
+
+                <!-- Length -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📏 Tuple Length</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+print(len(fruits))   # 3</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '3')">Try it</button>
+                        </div></pre>
+
+                <!-- Access -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔍 Access Tuple Items</h3>
+                <p class="text-gray-300 mb-4">
+                    Tuples use <strong>zero-based indexing</strong>, just like lists.
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ("apple", "banana", "cherry")
+print(fruits[0])
+print(fruits[1])
+print(fruits[2])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple\nbanana\ncherry')">Try it</button>
+                        </div></pre>
+
+                <!-- Negative Index -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Negative Indexing</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+print(fruits[-1])
+print(fruits[-2])
+print(fruits[-3])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'cherry\nbanana\napple')">Try it</button>
+                        </div></pre>
+
+                <!-- Slicing -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Slicing Tuples</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")
+print(fruits[2:5])
+print(fruits[:4])
+print(fruits[2:])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '(\'cherry\', \'orange\', \'kiwi\')\n(\'apple\', \'banana\', \'cherry\', \'orange\')\n(\'cherry\', \'orange\', \'kiwi\', \'melon\', \'mango\')')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        ⚠️ <strong>Note:</strong> End index is excluded in slicing.
+                    </p>
+                </div>
+
+                <!-- Negative Slicing -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Negative Slicing</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")
+print(fruits[-4:-1])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '(\'orange\', \'kiwi\', \'melon\')')">Try it</button>
+                        </div></pre>
+
+                <!-- Exists -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Check if Item Exists</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+print("banana" in fruits)
+print("grape" in fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+
+                <!-- Immutable -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🚫 Tuples Cannot Be Changed</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-red-400 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+fruits[1] = "orange"   # ERROR</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'ERROR')">Try it</button>
+                        </div></pre>
+
+                <!-- Add / Remove workaround -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔁 Modify Tuple (Workaround)</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("apple", "banana", "cherry")
+temp = list(fruits)
+temp.append("orange")
+fruits = tuple(temp)
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '(\'apple\', \'banana\', \'cherry\', \'orange\')')">Try it</button>
+                        </div></pre>
+
+                <!-- Sort -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔄 Sort Tuples</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ("orange", "mango", "kiwi", "banana")
+sorted_fruits = sorted(fruits)
+print(sorted_fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '[\'banana\', \'kiwi\', \'mango\', \'orange\']')">Try it</button>
+                        </div></pre>
+
+                <!-- Copy -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📋 Copy Tuples</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>original = ("apple", "banana", "cherry")
+copy_tuple = tuple(original)
+print(copy_tuple)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '(\'apple\', \'banana\', \'cherry\')')">Try it</button>
+                        </div></pre>
+
+                <!-- Join -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔗 Join Tuples</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>t1 = ("a", "b", "c")
+t2 = (1, 2, 3)
+joined = t1 + t2
+print(joined)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '(\'a\', \'b\', \'c\', 1, 2, 3)')">Try it</button>
+                        </div></pre>
+
+                <!-- Methods -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📚 Tuple Methods Reference</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="p-4 text-cyan-300 text-left">Method</th>
+                                <th class="p-4 text-cyan-300 text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code>count()</code></td>
+                                <td class="p-4">Returns number of occurrences</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="p-4"><code>index()</code></td>
+                                <td class="p-4">Returns index of value</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        🎉 <strong>Nice!</strong> You now fully understand tuples in Python.
+                    </p>
+                </div>
+
+            </div>
+            <hr><br><br>
+            <!-- SETS -->
+            <div id="sets" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-3xl font-bold text-white mb-6">🧩 Sets</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Sets are used to store multiple items in a single variable. They are unordered,
+                    unindexed, and do not allow duplicate values.
+                </p>
+
+                <!-- Creating -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating a Set</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'cherry\', \'banana\'}')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Note:</strong> Sets are unordered, so items may appear in a different order every time.
+                    </p>
+                </div>
+
+                <!-- Key Features -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">✨ Key Features of Sets</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Unordered</h4>
+                        <p class="text-gray-300 text-sm">Items have no fixed order</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Unindexed</h4>
+                        <p class="text-gray-300 text-sm">Cannot access items by index</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">No Duplicates</h4>
+                        <p class="text-gray-300 text-sm">Duplicate values are automatically removed</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Mutable</h4>
+                        <p class="text-gray-300 text-sm">You can add or remove items</p>
+                    </div>
+                </div>
+
+                <!-- Length -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📏 Set Length</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+print(len(fruits))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '3')">Try it</button>
+                        </div></pre>
+
+                <!-- Access -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔍 Access Set Items</h3>
+                <p class="text-gray-300 mb-4">
+                    You cannot access set items using indexes. Instead, use a loop or the <code>in</code> keyword.
+                </p>
+
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+for item in fruits:
+    print(item)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple\ncherry\nbanana')">Try it</button>
+                        </div></pre>
+
+                <!-- Exists -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Check if Item Exists</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+print("banana" in fruits)
+print("grape" in fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+
+                <!-- Add -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">➕ Add Set Items</h3>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">add()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+fruits.add("orange")
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'orange\', \'cherry\', \'banana\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">update()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana"}
+fruits.update(["orange", "kiwi"])
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'orange\', \'banana\', \'kiwi\'}')">Try it</button>
+                        </div></pre>
+
+                <!-- Remove -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">➖ Remove Set Items</h3>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">remove()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+fruits.remove("banana")
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'cherry\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">discard()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+fruits.discard("grape")
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'cherry\', \'banana\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">pop()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+fruits.pop()
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'cherry\', \'banana\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">clear()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = {"apple", "banana", "cherry"}
+fruits.clear()
+print(fruits)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'set()')">Try it</button>
+                        </div></pre>
+
+                <!-- Join -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔗 Join Sets</h3>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">union()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+print(set1.union(set2))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{1, 2, 3, 4, 5}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">update()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>set1 = {1, 2}
+set2 = {3, 4}
+set1.update(set2)
+print(set1)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{1, 2, 3, 4}')">Try it</button>
+                        </div></pre>
+
+                <!-- Set Operations -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🧮 Set Operations</h3>
+
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>a = {1, 2, 3, 4}
+b = {3, 4, 5}
+
+print(a | b)   # Union
+print(a & b)   # Intersection
+print(a - b)   # Difference
+print(a ^ b)   # Symmetric Difference</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Symmetric Difference')">Try it</button>
+                        </div></pre>
+
+                <!-- Copy -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📋 Copy Sets</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>original = {"apple", "banana"}
+copy_set = original.copy()
+print(copy_set)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'apple\', \'banana\'}')">Try it</button>
+                        </div></pre>
+
+                <!-- Methods -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📚 Set Methods Reference</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="p-4 text-cyan-300 text-left">Method</th>
+                                <th class="p-4 text-cyan-300 text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700"><td class="p-4">add()</td><td class="p-4">Adds an element</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">clear()</td><td class="p-4">Removes all elements</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">copy()</td><td class="p-4">Returns a copy</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">discard()</td><td class="p-4">Removes item safely</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">pop()</td><td class="p-4">Removes random item</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">remove()</td><td class="p-4">Removes specified item</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">union()</td><td class="p-4">Joins sets</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">intersection()</td><td class="p-4">Common items</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">difference()</td><td class="p-4">Unique items</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        🎉 <strong>Boss move!</strong> You’ve fully mastered Python Sets.
+                    </p>
+                </div>
+
+            </div>
+            <hr><br><br>
+            <!-- DICTIONARIES -->
+            <div id="dicts" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+
+                <h2 class="text-3xl font-bold text-white mb-6">📖 Dictionaries</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Dictionaries are used to store data values in <strong>key : value</strong> pairs.
+                    They are unordered, mutable, and optimized for fast lookups.
+                </p>
+
+                <!-- Creating -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating a Dictionary</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {
+    "name": "Rahul",
+    "age": 18,
+    "grade": "A"
+}
+print(student["name"])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Rahul')">Try it</button>
+                        </div></pre>
+
+                <!-- Key Features -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">✨ Key Features of Dictionaries</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Key-Value Pairs</h4>
+                        <p class="text-gray-300 text-sm">Data stored as key : value</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Mutable</h4>
+                        <p class="text-gray-300 text-sm">Values can be changed</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">No Duplicate Keys</h4>
+                        <p class="text-gray-300 text-sm">Keys must be unique</p>
+                    </div>
+
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-white font-semibold mb-1">Fast Lookup</h4>
+                        <p class="text-gray-300 text-sm">Access data in constant time</p>
+                    </div>
+                </div>
+
+                <!-- Length -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📏 Dictionary Length</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+print(len(student))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '2')">Try it</button>
+                        </div></pre>
+
+                <!-- Access -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔍 Access Dictionary Items</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>student = {"name": "Rahul", "age": 18}
+print(student["age"])
+print(student.get("name"))</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '18\nRahul')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        💡 <strong>Tip:</strong> Use <code>get()</code> to avoid KeyError.
+                    </p>
+                </div>
+
+                <!-- Keys / Values -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Dictionary Keys, Values & Items</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+
+print(student.keys())
+print(student.values())
+print(student.items())</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'dict_keys([\'name\', \'age\'])\ndict_values([\'Rahul\', 18])\ndict_items([(\'name\', \'Rahul\'), (\'age\', 18)])')">Try it</button>
+                        </div></pre>
+
+                <!-- Exists -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Check if Key Exists</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+print("age" in student)
+print("grade" in student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'True\nFalse')">Try it</button>
+                        </div></pre>
+
+                <!-- Change -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">✏️ Change Dictionary Items</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+student["age"] = 19
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'name\': \'Rahul\', \'age\': 19}')">Try it</button>
+                        </div></pre>
+
+                <!-- Update -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">update()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul"}
+student.update({"grade": "A"})
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'name\': \'Rahul\', \'grade\': \'A\'}')">Try it</button>
+                        </div></pre>
+
+                <!-- Add -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">➕ Add Dictionary Items</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {}
+student["name"] = "Rahul"
+student["age"] = 18
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'name\': \'Rahul\', \'age\': 18}')">Try it</button>
+                        </div></pre>
+
+                <!-- Remove -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">➖ Remove Dictionary Items</h3>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">pop()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>student = {"name": "Rahul", "age": 18}
+student.pop("age")
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'name\': \'Rahul\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">popitem()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>student = {"name": "Rahul", "age": 18}
+student.popitem()
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'name\': \'Rahul\'}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">del</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>student = {"name": "Rahul", "age": 18}
+del student["name"]
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'age\': 18}')">Try it</button>
+                        </div></pre>
+
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">clear()</h4>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+student.clear()
+print(student)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{}')">Try it</button>
+                        </div></pre>
+
+                <!-- Loop -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔁 Loop Through Dictionaries</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>student = {"name": "Rahul", "age": 18}
+
+for key in student:
+    print(key)
+
+for value in student.values():
+    print(value)
+
+for k, v in student.items():
+    print(k, v)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'name\nage\nRahul\n18\nname Rahul\nage 18')">Try it</button>
+                        </div></pre>
+
+                <!-- Copy -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📋 Copy Dictionaries</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>original = {"a": 1, "b": 2}
+copy_dict = original.copy()
+print(copy_dict)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '{\'a\': 1, \'b\': 2}')">Try it</button>
+                        </div></pre>
+
+                <!-- Nested -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">🪆 Nested Dictionaries</h3>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>school = {
+    "student1": {"name": "Rahul", "age": 18},
+    "student2": {"name": "Amit", "age": 19}
+}
+print(school["student1"]["name"])</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Rahul')">Try it</button>
+                        </div></pre>
+
+                <!-- Methods -->
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">📚 Dictionary Methods Reference</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full bg-gray-800/50 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="p-4 text-cyan-300 text-left">Method</th>
+                                <th class="p-4 text-cyan-300 text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-t border-gray-700"><td class="p-4">get()</td><td class="p-4">Returns value of key</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">keys()</td><td class="p-4">Returns keys</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">values()</td><td class="p-4">Returns values</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">items()</td><td class="p-4">Returns key-value pairs</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">update()</td><td class="p-4">Updates dictionary</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">pop()</td><td class="p-4">Removes key</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">clear()</td><td class="p-4">Removes all items</td></tr>
+                            <tr class="border-t border-gray-700"><td class="p-4">copy()</td><td class="p-4">Returns copy</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        🎉 <strong>Elite level unlocked!</strong> You now fully understand Python Dictionaries.
+                    </p>
+                </div>
+
+            </div>
+            <hr><br><br>
+            <!-- Data Structures Comparison -->
+            <div id="dataStructuresComparison" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+                <h2 class="text-3xl font-bold text-white mb-6">📚 Data Structures</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    This is the cheat-code table — <strong>List vs Tuple vs Set vs Dictionary</strong>
+                </p>
+                <table class="w-full bg-gray-800/50 rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-gray-700">
+                        <th class="p-4 text-cyan-300 text-left">Feature</th>
+                        <th class="p-4 text-cyan-300 text-left">List</th>
+                        <th class="p-4 text-cyan-300 text-left">Tuple</th>
+                        <th class="p-4 text-cyan-300 text-left">Set</th>
+                        <th class="p-4 text-cyan-300 text-left">Dictionary</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-300">
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Syntax</td>
+                        <td class="p-4">[]</td>
+                        <td class="p-4">()</td>
+                        <td class="p-4">{}</td>
+                        <td class="p-4">{key : value}</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Ordered</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">No</td>
+                        <td class="p-4">Yes (3.7+)</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Indexed</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">No</td>
+                        <td class="p-4">By Keys</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Mutable</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">No</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">Yes</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Allows Duplicates</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">No</td>
+                        <td class="p-4">Keys ❌ / Values ✅</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Access Method</td>
+                        <td class="p-4">Index</td>
+                        <td class="p-4">Index</td>
+                        <td class="p-4">Loop / in</td>
+                        <td class="p-4">Key</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Speed</td>
+                        <td class="p-4">Medium</td>
+                        <td class="p-4">Fast</td>
+                        <td class="p-4">Fast</td>
+                        <td class="p-4">Very Fast</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Memory Efficient</td>
+                        <td class="p-4">No</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">Yes</td>
+                        <td class="p-4">No</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Common Methods</td>
+                        <td class="p-4">append(), pop()</td>
+                        <td class="p-4">count(), index()</td>
+                        <td class="p-4">add(), union()</td>
+                        <td class="p-4">get(), items()</td>
+                    </tr>
+
+                    <tr class="border-t border-gray-700">
+                        <td class="p-4">Best Use Case</td>
+                        <td class="p-4">Dynamic data</td>
+                        <td class="p-4">Fixed data</td>
+                        <td class="p-4">Unique values</td>
+                        <td class="p-4">Structured data</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            </div>
+            <hr><br><br>
+            <!-- IF-ELSE -->
+            <div id="if_else" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
+            p-8 max-w-4xl border border-gray-800 mb-12">
+    <h2 class="text-3xl font-bold text-white mb-6">🔀 if, elif & else</h2>
+    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+        Conditional statements are used to make decisions in Python.
+        They allow your program to execute different blocks of code based on conditions.
+    </p>
+
+    <!-- if -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔹 if Statement</h3>
+    <p class="text-gray-300 mb-4">
+        The <code>if</code> statement executes a block of code only if the condition is true.
+    </p>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>age = 18
+
+if age >= 18:
+    print("You are eligible to vote")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'You are eligible to vote')">Try it</button>
+                        </div></pre>
+
+    <!-- else -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔹 if else Statement</h3>
+    <p class="text-gray-300 mb-4">
+        Use <code>else</code> to execute code when the condition is false.
+    </p>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>age = 16
+
+if age >= 18:
+    print("Eligible to vote")
+else:
+    print("Not eligible to vote")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Not eligible to vote')">Try it</button>
+                        </div></pre>
+
+    <!-- elif -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔹 if elif else Statement</h3>
+    <p class="text-gray-300 mb-4">
+        Use <code>elif</code> (else if) to check multiple conditions.
+    </p>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>marks = 85
+
+if marks >= 90:
+    print("Grade A")
+elif marks >= 75:
+    print("Grade B")
+elif marks >= 60:
+    print("Grade C")
+else:
+    print("Fail")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Grade B')">Try it</button>
+                        </div></pre>
+
+    <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+        <p class="text-gray-300">
+            💡 <strong>Rule:</strong> Python checks conditions from top to bottom and stops at the first true one.
+        </p>
+    </div>
+
+    <!-- Comparison operators -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">⚖️ Comparison Operators</h3>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>x = 10
+y = 5
+
+print(x == y)   # Equal
+print(x != y)   # Not equal
+print(x > y)    # Greater than
+print(x < y)    # Less than
+print(x >= y)   # Greater or equal
+print(x <= y)   # Less or equal</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Less or equal')">Try it</button>
+                        </div></pre>
+
+    <!-- Logical operators -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🔗 Logical Operators</h3>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>age = 20
+has_id = True
+
+if age >= 18 and has_id:
+    print("Entry allowed")
+
+if age < 18 or has_id:
+    print("Condition met")
+
+if not has_id:
+    print("ID required")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Entry allowed\nCondition met')">Try it</button>
+                        </div></pre>
+
+    <!-- Nested -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🪜 Nested if Statements</h3>
+    <p class="text-gray-300 mb-4">
+        An <code>if</code> inside another <code>if</code> is called nesting.
+    </p>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>num = 10
+
+if num > 0:
+    if num % 2 == 0:
+        print("Positive Even Number")
+    else:
+        print("Positive Odd Number")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Positive Even Number')">Try it</button>
+                        </div></pre>
+
+    <!-- Short hand -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">⚡ Short-Hand if / if-else</h3>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code># Short-hand if
+if 5 > 3: print("Five is greater")
+
+# Short-hand if-else
+print("Pass") if 60 >= 50 else print("Fail")</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Five is greater\nPass')">Try it</button>
+                        </div></pre>
+
+    <!-- Common mistakes -->
+    <h3 class="text-xl font-semibold text-cyan-300 mb-3">🚫 Common Mistakes</h3>
+    <pre class="whitespace-pre-wrap bg-gray-800 text-red-400 p-4 rounded-lg mb-6 font-mono"><code># ❌ Wrong (missing colon)
+if x > 5
+    print(x)
+
+# ❌ Wrong indentation
+if x > 5:
+print(x)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'SyntaxError: expected \':\'')">Try it</button>
+                        </div></pre>
+
+    <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+        <p class="text-gray-300">
+            🎉 <strong>Nice!</strong> You now understand conditional logic in Python.
+        </p>
+    </div>
+
             </div>
 
             <!-- LOOPS -->
             <div id="loops" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
-        p-8 max-w-4xl border border-gray-800 mb-12">
-                <h2 class="text-2xl font-bold mb-3">Loops</h2>
-                <p class="text-gray-300 mb-2">
-                    Loops repeat code automatically. Great for patterns & repeated tasks.
-                </p>
-                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>for i in range(5):
-    print(i)</code></pre>
-                <p class="text-gray-300">💡 `for` loops = repeat for a set number of times</p>
-            </div>
+            p-8 max-w-4xl border border-gray-800 mb-12">
 
+                <h2 class="text-3xl font-bold text-white mb-6">🔄 Loops</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Loops allow you to repeat code automatically, saving time and reducing redundancy. They're essential for processing collections and automating repetitive tasks.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">For Loop</h3>
+                <p class="text-gray-300 mb-4">
+                    Use a <code class="bg-gray-800 px-2 py-1 rounded">for</code> loop when you know exactly how many times you want to repeat:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>for i in range(1, 6):
+    print("Count:", i)
+
+# Output:
+# Count: 1
+# Count: 2
+# Count: 3
+# Count: 4
+# Count: 5</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Count: 1\nCount: 2\nCount: 3\nCount: 4\nCount: 5')">Try it</button>
+                        </div></pre>
+
+                <p class="text-gray-300 mb-6">
+                    You can also loop through lists, strings, and other collections:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'apple\nbanana\ncherry')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">While Loop</h3>
+                <p class="text-gray-300 mb-4">
+                    Use a <code class="bg-gray-800 px-2 py-1 rounded">while</code> loop when you want to repeat until a condition becomes false:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>count = 1
+while count <= 5:
+    print(count)
+    count += 1
+
+# Output: 1 2 3 4 5</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '1 2 3 4 5')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4 mb-6">
+                    <p class="text-gray-300">
+                        ⚠️ <strong>Warning:</strong> Make sure your while loop has a way to end, or it will run forever (infinite loop)!
+                    </p>
+                </div>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Loop Control Statements</h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-purple-300 font-semibold mb-2">break</h4>
+                        <p class="text-gray-300 mb-2">Exits the loop immediately:</p>
+                        <pre class="whitespace-pre-wrap bg-gray-900 text-gray-200 p-3 rounded font-mono text-sm"><code>for i in range(10):
+    if i == 5:
+        break
+    print(i)  # Prints 0 to 4</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '0\n1\n2\n3\n4')">Try it</button>
+                        </div></pre>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-4">
+                        <h4 class="text-purple-300 font-semibold mb-2">continue</h4>
+                        <p class="text-gray-300 mb-2">Skips the current iteration:</p>
+                        <pre class="whitespace-pre-wrap bg-gray-900 text-gray-200 p-3 rounded font-mono text-sm"><code>for i in range(5):
+    if i == 2:
+        continue
+    print(i)  # Prints 0, 1, 3, 4</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '0\n1\n3\n4')">Try it</button>
+                        </div></pre>
+                    </div>
+                </div>
+            </div>
+            <hr><br><br>
             <!-- FUNCTIONS -->
             <div id="functions" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-xl
-        p-8 max-w-4xl border border-gray-800 mb-12">
-                <h2 class="text-2xl font-bold mb-3">Functions</h2>
-                <p class="text-gray-300 mb-2">
-                    Functions let you reuse code. Write once, use many times.
-                </p>
-                <pre class="bg-gray-800 text-gray-200 p-3 rounded mb-2"><code>def greet():
-    print("Hello!")</code></pre>
-                <p class="text-gray-300">💡 Call `greet()` anywhere to say Hello!</p>
-            </div>
+            p-8 max-w-4xl border border-gray-800 mb-12">
 
+                <h2 class="text-3xl font-bold text-white mb-6">⚙️ Functions</h2>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Functions are reusable blocks of code that perform specific tasks. They help you organize code, avoid repetition, and make your programs more maintainable.
+                </p>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Creating a Function</h3>
+                <p class="text-gray-300 mb-4">
+                    Use the <code class="bg-gray-800 px-2 py-1 rounded">def</code> keyword to define a function:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>def greet(name):
+    print("Hello,", name)
+
+# Calling the function
+greet("Alex")    # Output: Hello, Alex
+greet("Sam")     # Output: Hello, Sam</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, Alex\\nHello, Sam')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Function Parameters</h3>
+                <p class="text-gray-300 mb-4">
+                    Functions can accept multiple parameters:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>def add_numbers(a, b):
+    result = a + b
+    print("Sum:", result)
+
+add_numbers(5, 3)    # Output: Sum: 8</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Sum: 8')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Return Values</h3>
+                <p class="text-gray-300 mb-4">
+                    Functions can return values using the <code class="bg-gray-800 px-2 py-1 rounded">return</code> statement:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 font-mono"><code>def multiply(a, b):
+    return a * b
+
+result = multiply(4, 5)
+print(result)    # Output: 20</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, '20')">Try it</button>
+                        </div></pre>
+
+                <h3 class="text-xl font-semibold text-cyan-300 mb-3">Default Parameters</h3>
+                <p class="text-gray-300 mb-4">
+                    You can set default values for parameters:
+                </p>
+                <pre class="whitespace-pre-wrap bg-gray-800 text-gray-200 p-4 rounded-lg mb-4 font-mono"><code>def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+greet("Alex")              # Output: Hello, Alex!
+greet("Sam", "Hi")         # Output: Hi, Sam!</code><div class="mt-2 flex justify-start">
+                            <button class="px-5 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500" onclick="tryCode(this, 'Hello, Alex!\\nHi, Sam!')">Try it</button>
+                        </div></pre>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-gray-300">
+                        💡 <strong>Best Practice:</strong> Use functions to break down complex problems into smaller, manageable pieces. This makes your code easier to read, test, and debug.
+                    </p>
+                </div>
+            </div>
+            <hr><br><br>
         </div>
+
+
+
+    </div>
     </div>
 
     <!-- Quizzes -->
@@ -530,7 +2993,7 @@ student = {"name": "Sam", "age": 15}  # dictionary</code></pre>
     </div>
 
     <!-- Playground -->
-    <div id="playground_container" style="display: none; min-height: 100vh;">
+    <div id="playground_container" style="display: none; min-height: 100vh;" class="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
         <!-- Navbar -->
         <nav class="fixed top-0 left-0 w-full flex justify-end items-center 
                 py-4 px-8 bg-black/80 backdrop-blur-md shadow-lg z-10 border-b border-gray-800">
@@ -548,7 +3011,7 @@ student = {"name": "Sam", "age": 15}  # dictionary</code></pre>
                     🧠 <span>Quizzes</span>
                 </a>
                 <a onclick="showPlayground()"
-                    class="flex items-center gap-2 hover:text-blue-300 transition cursor-pointer">
+                    class="flex items-center gap-2 text-purple-400 transition cursor-pointer">
                     🧩 <span>Playground</span>
                 </a>
             </div>
@@ -556,146 +3019,178 @@ student = {"name": "Sam", "age": 15}  # dictionary</code></pre>
         </nav>
 
         <!-- Content -->
-        <div class="pt-32 px-6 lg:px-16 pb-20 text-white">
-            <div class="max-w-6xl mx-auto space-y-12">
-                <div class="text-center space-y-6">
-                    <div
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200 uppercase tracking-widest text-xs">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-sparkles w-4 h-4">
-                            <path
-                                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z">
-                            </path>
+        <div class="pt-24 px-4 lg:px-8 pb-12 text-white">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header Section -->
+                <div class="text-center mb-12 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-purple-500/40 bg-purple-500/10 text-purple-300 font-medium text-sm backdrop-blur-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
                         </svg>
-                        Playground Mode
+                        LIVE CODE EDITOR
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-extrabold">
-                        Build, Test & Iterate in the <span
-                            class="bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">Python
-                            Playground</span>
+                    <h1 class="text-5xl md:text-6xl font-black tracking-tight">
+                        Python <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">Playground</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                        A distraction-free coding surface with instant feedback, curated hints, and a modern console
-                        so
-                        you can ship ideas faster.
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                        Write, execute, and experiment with Python code in real-time
                     </p>
-                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-400">
-                        <span
-                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
-                            ⚡ Auto-reset sandbox
-                        </span>
-                        <span
-                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
-                            📦 Standard library access
-                        </span>
-                        <span
-                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/60">
-                            🔐 Isolated sessions
-                        </span>
-                    </div>
                 </div>
 
-                <div class="grid lg:grid-cols-[1.8fr,1fr] gap-6">
-                    <div class="rounded-2xl border border-slate-800 bg-slate-950/60 shadow-2xl backdrop-blur">
-                        <div
-                            class="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-gradient-to-r from-slate-900/80 to-slate-900/40 rounded-t-2xl">
-                            <div class="flex items-center gap-3 text-sm text-slate-300">
-                                <div class="flex gap-1.5">
-                                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                <!-- Main Editor Grid -->
+                <div class="grid lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Code Editor Panel -->
+                    <div class="group relative">
+                        <!-- Glow Effect -->
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                        
+                        <div class="relative bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-gray-800/50 shadow-2xl overflow-hidden">
+                            <!-- Editor Header -->
+                            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-800/50 bg-gradient-to-r from-gray-800/80 to-gray-900/80">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition cursor-pointer"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition cursor-pointer"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition cursor-pointer"></div>
+                                    </div>
+                                    <span class="text-sm font-mono text-gray-400">main.py</span>
                                 </div>
-                                editor.py
+                                <div class="flex items-center gap-3">
+                                    <button class="px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 flex items-center gap-1.5" onclick="resetCode()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                            <path d="M3 3v5h5"></path>
+                                        </svg>
+                                        Reset
+                                    </button>
+                                    <button id="copy_button" class="px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 flex items-center gap-1.5" onclick="copyCode()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                                        </svg>
+                                        <span id="copy_text">Copy</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3 text-xs text-slate-400">
-                                <button class="hover:text-white flex items-center gap-1 transition-colors"
-                                    onclick="resetCode()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-rotate-ccw w-4 h-4">
-                                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                                        <path d="M3 3v5h5"></path>
-                                    </svg>
-                                    Reset
-                                </button>
-                                <button class="hover:text-white flex items-center gap-1 transition-colors"
-                                    onclick="copyCode()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-copy w-4 h-4">
-                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
-                                    </svg>
-                                    Copy
-                                </button>
-                            </div>
-                        </div>
-                        <textarea
-                            class="w-full h-[320px] bg-transparent px-6 py-4 font-mono text-sm text-emerald-300 focus:outline-none resize-none"
-                            id="code_place" placeholder="# Write your Python code here...
-print('Hello, PyLearn!')" spellcheck="false"># Welcome to the Python Playground! 🚀
-print("Hello, PyLearn!")
+
+                            <!-- Code Textarea -->
+                            <div class="relative">
+                                <textarea
+                                    class="w-full h-[450px] bg-transparent px-6 py-5 font-mono text-sm text-emerald-400 focus:outline-none resize-none leading-relaxed"
+                                    id="code_place" 
+                                    placeholder="# Start coding here...
+print('Hello, World!')" 
+                                    spellcheck="false"># Welcome to Python Playground! 🚀
+# Write your code below and click Run
+
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("PyLearn"))
 </textarea>
+                                <!-- Line Numbers Overlay (Optional Enhancement) -->
+                                <div class="absolute top-0 left-0 px-3 py-5 text-gray-600 font-mono text-sm select-none pointer-events-none">
+                                    <div>1</div>
+                                    <div>2</div>
+                                    <div>3</div>
+                                    <div>4</div>
+                                    <div>5</div>
+                                    <div>6</div>
+                                </div>
+                            </div>
 
-                        <div
-                            class="flex flex-wrap gap-3 px-6 py-4 border-t border-slate-800 bg-slate-900/60 rounded-b-2xl">
-                            <button
-                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-[1.01] transition text-sm font-semibold shadow-lg shadow-purple-500/20"
-                                onclick="code_result()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-play w-4 h-4">
-                                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
-                                </svg>
-                                Run code
-                            </button>
-
+                            <!-- Editor Footer with Run Button -->
+                            <div class="px-6 py-4 border-t border-gray-800/50 bg-gray-900/60 flex items-center justify-between">
+                                <div class="flex items-center gap-3 text-xs text-gray-500">
+                                    <span class="flex items-center gap-1.5">
+                                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                        Python 3.x
+                                    </span>
+                                    <span>•</span>
+                                    <span>UTF-8</span>
+                                </div>
+                                <button
+                                    class="group/btn relative inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 hover:from-purple-500 hover:via-purple-400 hover:to-pink-400 font-semibold text-white shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 transition-all duration-200"
+                                    onclick="code_result()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover/btn:translate-x-0.5 transition-transform">
+                                        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                                    </svg>
+                                    Run Code
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="space-y-6">
-                        <div class="rounded-2xl border border-slate-800 bg-slate-950/60 shadow-2xl p-6">
-                            <!-- Playground Loader -->
-                            <div id="loader"
-                                class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
-                                <div
-                                    class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin">
+                    <!-- Output Panel -->
+                    <div class="group relative">
+                        <!-- Glow Effect -->
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                        
+                        <div class="relative bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-gray-800/50 shadow-2xl overflow-hidden h-full">
+                            <!-- Output Header -->
+                            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-800/50 bg-gradient-to-r from-gray-800/80 to-gray-900/80">
+                                <div class="flex items-center gap-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400">
+                                        <polyline points="4 17 10 11 4 5"></polyline>
+                                        <line x1="12" x2="20" y1="19" y2="19"></line>
+                                    </svg>
+                                    <span class="text-sm font-semibold text-gray-300">Console Output</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></div>
+                                    <span class="text-xs text-gray-500">Ready</span>
                                 </div>
                             </div>
-                            <pre class="bg-slate-950/80 border border-slate-900 rounded-xl p-4 text-sm text-slate-200 font-mono overflow-auto min-h-[140px]"
-                                id="output_code">Hello, PyLearn!
 
-                            </pre>
+                            <!-- Output Content -->
+                            <div class="p-6">
+                                <!-- Loader -->
+                                <div id="loader" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[9999]">
+                                    <div class="relative">
+                                        <div class="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+                                        <div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-pink-500 rounded-full animate-spin" style="animation-duration: 1.5s; animation-direction: reverse;"></div>
+                                    </div>
+                                </div>
+
+                                <pre class="whitespace-pre-wrap bg-gray-950/80 border border-gray-800/50 rounded-xl p-5 text-sm text-gray-300 font-mono overflow-auto min-h-[400px] max-h-[400px] leading-relaxed" id="output_code">Hello, PyLearn!
+
+</pre>
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
 
+                <!-- Tips Section -->
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
-                        <div class="text-3xl">💡</div>
-                        <h3 class="font-semibold text-white">Stay curious</h3>
-                        <p class="text-sm text-slate-400">Instrument your code with print statements or f-strings to
-                            understand the flow.</p>
+                    <div class="group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+                        <div class="relative bg-gray-900/60 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300">
+                            <div class="text-4xl mb-3">💡</div>
+                            <h3 class="font-bold text-white mb-2 text-lg">Pro Tip</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Use <code class="px-2 py-0.5 bg-gray-800 rounded text-purple-400">print()</code> statements to debug and understand your code flow</p>
+                        </div>
                     </div>
-                    <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
-                        <div class="text-3xl">🧪</div>
-                        <h3 class="font-semibold text-white">Treat it like a lab</h3>
-                        <p class="text-sm text-slate-400">Use short iterations, reset often, and test one idea at a
-                            time.</p>
+
+                    <div class="group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+                        <div class="relative bg-gray-900/60 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300">
+                            <div class="text-4xl mb-3">⚡</div>
+                            <h3 class="font-bold text-white mb-2 text-lg">Quick Execute</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Press <code class="px-2 py-0.5 bg-gray-800 rounded text-cyan-400">Ctrl+Enter</code> to run your code instantly</p>
+                        </div>
                     </div>
-                    <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6 space-y-2">
-                        <div class="text-3xl">📚</div>
-                        <h3 class="font-semibold text-white">Link to lessons</h3>
-                        <p class="text-sm text-slate-400">Recreate examples from the Learn tab and push them further
-                            with experiments.</p>
+
+                    <div class="group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-orange-600 rounded-xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+                        <div class="relative bg-gray-900/60 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6 hover:border-pink-500/50 transition-all duration-300">
+                            <div class="text-4xl mb-3">🎯</div>
+                            <h3 class="font-bold text-white mb-2 text-lg">Experiment</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Try different approaches and learn from errors - that's how you grow!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     <script>
@@ -720,7 +3215,7 @@ print("Hello, PyLearn!")
             const data = await res.json();
 
             if (data.success) {
-                alert(`Welcome, ${email.split('@')[0]}!`);
+                //alert(`Welcome, ${email.split('@')[0]}!`);
                 document.getElementById("login_container").style.display = "none";
                 document.getElementById("home_container").style.display = "block";
                 document.getElementById("body").style.backgroundImage = "none";
@@ -757,13 +3252,23 @@ print("Hello, PyLearn!")
             document.getElementById("body").style.backgroundColor = "black";
         }
 
-        function showPlayground() {
+        function showPlayground(code_input = null, code_output = null) {
             document.getElementById("playground_container").style.display = "block";
             document.getElementById("home_container").style.display = "none";
             document.getElementById("learn_container").style.display = "none";
             document.getElementById("quizzes_container").style.display = "none";
             document.getElementById("body").style.backgroundImage = "none";
             document.getElementById("body").style.backgroundColor = "black";
+            
+            // If code_input is provided, populate the code editor
+            if (code_input !== null) {
+                document.getElementById("code_place").value = code_input;
+            }
+            
+            // If code_output is provided, populate the output area
+            if (code_output !== null) {
+                document.getElementById("output_code").innerText = code_output;
+            }
         }
 
 
@@ -792,9 +3297,25 @@ print("Hello, PyLearn!")
             document.getElementById('output_code').innerHTML = '';
         }
 
+        // Helper function for Try It buttons
+        function tryCode(buttonElement, expectedOutput) {
+            // Button is inside the PRE tag
+            const preElement = buttonElement.closest('pre');
+            
+            if (preElement) {
+                const code = preElement.querySelector('code').innerText;
+                showPlayground(code, expectedOutput);
+            }
+        }
+
         function copyCode() {
             let code = document.getElementById('code_place').value;
             navigator.clipboard.writeText(code);
+            document.getElementById("copy_text").innerText = "Copied!";
+            setTimeout(() => {
+                document.getElementById("copy_text").innerText = "Copy";
+            }, 3000);
+
         }
     </script>
 

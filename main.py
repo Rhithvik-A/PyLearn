@@ -23,7 +23,7 @@ def login(data: dict = Body(...)):
     return {"success": False}
 
 # Code Conversion Logic
-client = genai.Client(api_key="AIzaSyB8QTPh4nMAo5VZjjBzlyn0Bp30YTsIjRo")
+client = genai.Client(api_key="AIzaSyDShd2zDqHedJ6G8Z7dbeL6F4MxMiGI9Qk")
 
 @app.get("/convert_code")
 def convert_code(Question: str = Query(..., description="Your question")):
@@ -33,6 +33,7 @@ def convert_code(Question: str = Query(..., description="Your question")):
                 model="gemini-2.5-flash",
                 contents=Question
             )
+            print(response.text)    
             return {"answer": response.text}
         except Exception as e:
             print(f"Attempt {attempt + 1} failed: {e}")
