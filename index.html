@@ -437,7 +437,236 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: width 0.3s ease;
         }
+
+        /* ============================================ */
+        /* MOBILE RESPONSIVENESS & SIDEBAR TOGGLE */
+        /* ============================================ */
+
+        /* Sidebar toggle button */
+        .sidebar-toggle {
+            position: fixed;
+            top: 5.5rem;
+            left: 1rem;
+            z-index: 30;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .sidebar-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .sidebar-toggle:active {
+            transform: translateY(0);
+        }
+
+        /* Sidebar transitions */
+        .learn-sidebar {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .learn-content {
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Sidebar collapsed state */
+        .sidebar-collapsed .learn-sidebar {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-collapsed .learn-content {
+            margin-left: 0 !important;
+        }
+
+        /* Mobile styles (screens < 768px) */
+        @media (max-width: 767px) {
+            /* Navbar adjustments */
+            nav {
+                padding: 0.75rem 1rem !important;
+            }
+
+            nav .flex.items-center.gap-8 {
+                gap: 1rem !important;
+                font-size: 0.9rem !important;
+            }
+
+            nav a span {
+                display: none;
+            }
+
+            /* Home container mobile layout */
+            #home_container .flex.flex-col.md\:flex-row {
+                flex-direction: column !important;
+                margin-top: 6rem !important;
+                padding: 1rem !important;
+                gap: 2rem !important;
+            }
+
+            #home_container h1 {
+                font-size: 2rem !important;
+                text-align: center;
+            }
+
+            #home_container .text-center.md\:text-left {
+                text-align: center !important;
+            }
+
+            #home_container img {
+                max-width: 100% !important;
+            }
+
+            /* Stats section mobile */
+            #sentiment_analysis_data .grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                padding: 0 1rem !important;
+            }
+
+            /* Footer mobile */
+            footer {
+                padding: 2rem 1rem !important;
+            }
+
+            footer .max-w-sm {
+                max-width: 100% !important;
+                padding: 1.5rem !important;
+            }
+
+            /* Learn container mobile layout */
+            .learn-sidebar {
+                position: fixed;
+                top: 4rem;
+                left: 0;
+                width: 16rem !important;
+                height: calc(100vh - 4rem) !important;
+                transform: translateX(-100%);
+                z-index: 25;
+            }
+
+            .learn-sidebar.active {
+                transform: translateX(0);
+            }
+
+            .learn-content {
+                margin-left: 0 !important;
+                padding: 1rem !important;
+                padding-top: 6rem !important;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+                top: 4.5rem;
+            }
+
+            /* Content cards mobile */
+            .bg-gray-900\/50 {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .bg-gray-900\/50 h1,
+            .bg-gray-900\/50 h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .bg-gray-900\/50 h3 {
+                font-size: 1.25rem !important;
+            }
+
+            .bg-gray-900\/50 pre {
+                font-size: 0.85rem !important;
+                padding: 0.75rem !important;
+            }
+
+            /* Quiz container mobile */
+            .quiz-session-container {
+                padding: 1.5rem !important;
+                margin: 1rem !important;
+            }
+
+            .quiz-card {
+                padding: 1.5rem !important;
+            }
+
+            /* Playground mobile */
+            .min-h-screen.bg-gradient-to-br {
+                padding: 1rem !important;
+            }
+
+            /* Tables responsive */
+            table {
+                font-size: 0.85rem !important;
+            }
+
+            table th,
+            table td {
+                padding: 0.5rem !important;
+            }
+
+            /* Buttons mobile */
+            button {
+                font-size: 0.9rem !important;
+                padding: 0.5rem 1rem !important;
+            }
+        }
+
+        /* Tablet styles (768px - 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            /* Sidebar on tablet */
+            .learn-sidebar {
+                width: 14rem !important;
+            }
+
+            .learn-content {
+                margin-left: 14rem !important;
+                padding: 2rem !important;
+            }
+
+            .sidebar-toggle {
+                left: 14.5rem;
+            }
+
+            .sidebar-collapsed .sidebar-toggle {
+                left: 1rem;
+            }
+
+            /* Home container tablet */
+            #home_container .flex.flex-col.md\:flex-row {
+                padding: 2rem !important;
+            }
+
+            /* Stats section tablet */
+            #sentiment_analysis_data .grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        /* Desktop (> 1024px) - sidebar toggle still available */
+        @media (min-width: 1025px) {
+            .sidebar-toggle {
+                left: 16.5rem;
+            }
+
+            .sidebar-collapsed .sidebar-toggle {
+                left: 1rem;
+            }
+        }
     </style>
+
 </head>
 
 <body class="min-h-screen flex items-center justify-center text-white" id="body">
@@ -632,8 +861,13 @@
 
         </nav>
 
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+            ☰
+        </button>
+
         <!-- ======== LEARN SIDEBAR (NEW) ======== -->
-        <aside class="fixed top-20 left-0 w-64 h-[calc(100vh-5rem)]
+        <aside id="learnSidebar" class="learn-sidebar fixed top-20 left-0 w-64 h-[calc(100vh-5rem)]
         bg-gray-950 border-r border-gray-800
         overflow-y-auto px-4 py-6 z-20">
 
@@ -691,7 +925,7 @@
         <!-- ==================================== -->
 
         <!-- Content -->
-        <div class="pt-32 px-8 lg:px-16 pb-16 ml-64">
+        <div id="learnContent" class="learn-content pt-32 px-8 lg:px-16 pb-16 ml-64">
 
             <!-- INTRO -->
             <h1 id="intro" class="text-4xl md:text-5xl font-extrabold text-transparent
@@ -3736,6 +3970,60 @@ showQuizzes = function() {
     originalShowQuizzes();
     initQuizDashboard();
 };
+
+// ============================================
+// SIDEBAR TOGGLE FUNCTIONALITY
+// ============================================
+
+function toggleSidebar() {
+    const learnContainer = document.getElementById('learn_container');
+    const sidebar = document.getElementById('learnSidebar');
+    const isMobile = window.innerWidth < 768;
+    
+    if (isMobile) {
+        // On mobile, toggle the 'active' class on the sidebar
+        sidebar.classList.toggle('active');
+    } else {
+        // On desktop/tablet, toggle the collapsed state on the container
+        learnContainer.classList.toggle('sidebar-collapsed');
+        
+        // Save state to localStorage
+        const isCollapsed = learnContainer.classList.contains('sidebar-collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+    }
+}
+
+// Initialize sidebar state on page load
+function initSidebarState() {
+    const learnContainer = document.getElementById('learn_container');
+    const isMobile = window.innerWidth < 768;
+    
+    if (!isMobile) {
+        // Restore saved state on desktop/tablet
+        const savedState = localStorage.getItem('sidebarCollapsed');
+        if (savedState === 'true') {
+            learnContainer.classList.add('sidebar-collapsed');
+        }
+    }
+}
+
+// Call init on page load
+document.addEventListener('DOMContentLoaded', initSidebarState);
+
+// Re-initialize when window is resized
+let resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        const sidebar = document.getElementById('learnSidebar');
+        const isMobile = window.innerWidth < 768;
+        
+        if (isMobile) {
+            // Remove active class when resizing to mobile
+            sidebar.classList.remove('active');
+        }
+    }, 250);
+});
     </script>
 
 </body>
