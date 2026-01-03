@@ -13,15 +13,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Login Logic
-VALID_PASSWORD = "PyLEaRn@671/1/2026_USER"
-
-@app.post("/login")
-def login(data: dict = Body(...)):
-    if data["password"] == VALID_PASSWORD:
-        return {"success": True}
-    return {"success": False}
-
 # Code Conversion Logic
 client = genai.Client(api_key="AIzaSyDShd2zDqHedJ6G8Z7dbeL6F4MxMiGI9Qk")
 
